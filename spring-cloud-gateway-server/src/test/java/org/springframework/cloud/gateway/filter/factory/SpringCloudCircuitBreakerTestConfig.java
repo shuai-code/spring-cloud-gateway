@@ -122,11 +122,11 @@ public class SpringCloudCircuitBreakerTestConfig {
 								.uri(uri))
 				.route("circuitbreaker_fallback_test_reset_exchange",
 						r -> r.host("**.circuitbreakerresetexchange.org").filters(f -> f
-								.circuitBreaker(config -> config.setName("fallbackcmd")
-										.setFallbackUri("forward:/resetExchangeFallbackController"))
-								.filter((exchange, chain) -> chain.filter(exchange)
-										.then(Mono.defer(() -> !exchange.getResponse().isCommitted()
-												? Mono.error(new Exception("Some Random Exception")) : Mono.empty()))))
+										.circuitBreaker(config -> config.setName("fallbackcmd")
+												.setFallbackUri("forward:/resetExchangeFallbackController"))
+										.filter((exchange, chain) -> chain.filter(exchange)
+												.then(Mono.defer(() -> !exchange.getResponse().isCommitted()
+														? Mono.error(new Exception("Some Random Exception")) : Mono.empty()))))
 								.uri(uri))
 				.build();
 	}

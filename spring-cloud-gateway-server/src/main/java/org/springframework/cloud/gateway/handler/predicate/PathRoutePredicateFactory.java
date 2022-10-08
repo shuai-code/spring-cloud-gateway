@@ -111,8 +111,7 @@ public class PathRoutePredicateFactory extends AbstractRoutePredicateFactory<Pat
 						exchange.getAttributes().put(GATEWAY_PREDICATE_MATCHED_PATH_ROUTE_ID_ATTR, routeId);
 					}
 					return true;
-				}
-				else {
+				} else {
 					traceMatch("Pattern", config.getPatterns(), path, false);
 					return false;
 				}

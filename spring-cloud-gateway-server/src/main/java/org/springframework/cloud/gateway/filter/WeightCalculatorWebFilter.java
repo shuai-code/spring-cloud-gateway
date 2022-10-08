@@ -72,7 +72,7 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 	private final AtomicBoolean routeLocatorInitialized = new AtomicBoolean();
 
 	public WeightCalculatorWebFilter(ObjectProvider<RouteLocator> routeLocator,
-			ConfigurationService configurationService) {
+									 ConfigurationService configurationService) {
 		this.routeLocator = routeLocator;
 		this.configurationService = configurationService;
 	}
@@ -105,7 +105,7 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 	public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
 		// from config file
 		return PredicateArgsEvent.class.isAssignableFrom(eventType) ||
-		// from java dsl
+				// from java dsl
 				WeightDefinedEvent.class.isAssignableFrom(eventType) ||
 				// force initialization
 				RefreshRoutesEvent.class.isAssignableFrom(eventType);
@@ -120,19 +120,16 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 	public void onApplicationEvent(ApplicationEvent event) {
 		if (event instanceof PredicateArgsEvent) {
 			handle((PredicateArgsEvent) event);
-		}
-		else if (event instanceof WeightDefinedEvent) {
+		} else if (event instanceof WeightDefinedEvent) {
 			addWeightConfig(((WeightDefinedEvent) event).getWeightConfig());
-		}
-		else if (event instanceof RefreshRoutesEvent && routeLocator != null) {
+		} else if (event instanceof RefreshRoutesEvent && routeLocator != null) {
 			// forces initialization
 			if (routeLocatorInitialized.compareAndSet(false, true)) {
 				// on first time, block so that app fails to start if there are errors in
 				// routes
 				// see gh-1574
 				routeLocator.ifAvailable(locator -> locator.getRoutes().blockLast());
-			}
-			else {
+			} else {
 				// this preserves previous behaviour on refresh, this could likely go away
 				routeLocator.ifAvailable(locator -> locator.getRoutes().subscribe());
 			}
@@ -166,8 +163,7 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 		// later during filter execution.
 		if (groupWeights.containsKey(group)) {
 			config = new GroupWeightConfig(groupWeights.get(group));
-		}
-		else {
+		} else {
 			config = new GroupWeightConfig(group);
 		}
 

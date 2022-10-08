@@ -163,9 +163,9 @@ public class WebSocketIntegrationTests {
 		Flux<String> input = Flux.range(1, count).map(index -> "msg-" + index);
 		AtomicReference<List<String>> actualRef = new AtomicReference<>();
 		this.client.execute(getUrl("/echo"),
-				session -> session.send(input.map(session::textMessage))
-						.thenMany(session.receive().take(count).map(WebSocketMessage::getPayloadAsText)).collectList()
-						.doOnNext(actualRef::set).then())
+						session -> session.send(input.map(session::textMessage))
+								.thenMany(session.receive().take(count).map(WebSocketMessage::getPayloadAsText)).collectList()
+								.doOnNext(actualRef::set).then())
 				.block(TIMEOUT);
 		assertThat(actualRef.get()).isNotNull();
 		assertThat(actualRef.get()).isEqualTo(input.collectList().block());
@@ -221,7 +221,7 @@ public class WebSocketIntegrationTests {
 		AtomicReference<Object> headerRef = new AtomicReference<>();
 
 		this.client.execute(getUrl("/custom-header"), headers, session -> session.receive()
-				.map(WebSocketMessage::getPayloadAsText).doOnNext(headerRef::set).doOnError(headerRef::set).then())
+						.map(WebSocketMessage::getPayloadAsText).doOnNext(headerRef::set).doOnError(headerRef::set).then())
 				.block(TIMEOUT);
 
 		assertThat(headerRef.get()).isEqualTo("my-header:my-value");

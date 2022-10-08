@@ -107,7 +107,6 @@ import org.springframework.web.server.ServerWebExchange;
  * </p>
  *
  * @author Dave Syer
- *
  */
 public class ProxyExchange<T> {
 
@@ -151,6 +150,7 @@ public class ProxyExchange<T> {
 	 * request downstream without changing it. If you want to transform the incoming
 	 * request you can declare it as a <code>@RequestBody</code> in your
 	 * <code>@RequestMapping</code> in the usual Spring MVC way.
+	 *
 	 * @param body the request body to send downstream
 	 * @return this for convenience
 	 */
@@ -165,6 +165,7 @@ public class ProxyExchange<T> {
 	 * request downstream without changing it. If you want to transform the incoming
 	 * request you can declare it as a <code>@RequestBody</code> in your
 	 * <code>@RequestMapping</code> in the usual Spring MVC way.
+	 *
 	 * @param body the request body to send downstream
 	 * @return this for convenience
 	 */
@@ -176,7 +177,8 @@ public class ProxyExchange<T> {
 
 	/**
 	 * Sets a header for the downstream call.
-	 * @param name Header name
+	 *
+	 * @param name  Header name
 	 * @param value Header values
 	 * @return this for convenience
 	 */
@@ -188,6 +190,7 @@ public class ProxyExchange<T> {
 	/**
 	 * Additional headers, or overrides of the incoming ones, to be used in the downstream
 	 * call.
+	 *
 	 * @param headers the http headers to use in the downstream call
 	 * @return this for convenience
 	 */
@@ -199,6 +202,7 @@ public class ProxyExchange<T> {
 	/**
 	 * Sets the names of sensitive headers that are not passed downstream to the backend
 	 * service.
+	 *
 	 * @param names the names of sensitive headers
 	 * @return this for convenience
 	 */
@@ -216,14 +220,14 @@ public class ProxyExchange<T> {
 
 	/**
 	 * Sets the uri for the backend call when triggered by the HTTP methods.
+	 *
 	 * @param uri the backend uri to send the request to
 	 * @return this for convenience
 	 */
 	public ProxyExchange<T> uri(String uri) {
 		try {
 			this.uri = new URI(uri);
-		}
-		catch (URISyntaxException e) {
+		} catch (URISyntaxException e) {
 			throw new IllegalStateException("Cannot create URI", e);
 		}
 		return this;
@@ -307,23 +311,17 @@ public class ProxyExchange<T> {
 	public Mono<ResponseEntity<T>> forward() {
 		if (httpMethod.equals(HttpMethod.GET)) {
 			return get();
-		}
-		else if (httpMethod.equals(HttpMethod.HEAD)) {
+		} else if (httpMethod.equals(HttpMethod.HEAD)) {
 			return head();
-		}
-		else if (httpMethod.equals(HttpMethod.OPTIONS)) {
+		} else if (httpMethod.equals(HttpMethod.OPTIONS)) {
 			return options();
-		}
-		else if (httpMethod.equals(HttpMethod.POST)) {
+		} else if (httpMethod.equals(HttpMethod.POST)) {
 			return post();
-		}
-		else if (httpMethod.equals(HttpMethod.DELETE)) {
+		} else if (httpMethod.equals(HttpMethod.DELETE)) {
 			return delete();
-		}
-		else if (httpMethod.equals(HttpMethod.PUT)) {
+		} else if (httpMethod.equals(HttpMethod.PUT)) {
 			return put();
-		}
-		else if (httpMethod.equals(HttpMethod.PATCH)) {
+		} else if (httpMethod.equals(HttpMethod.PATCH)) {
 			return patch();
 		}
 
@@ -333,23 +331,17 @@ public class ProxyExchange<T> {
 	public <S> Mono<ResponseEntity<S>> forward(Function<ResponseEntity<T>, ResponseEntity<S>> converter) {
 		if (httpMethod.equals(HttpMethod.GET)) {
 			return get(converter);
-		}
-		else if (httpMethod.equals(HttpMethod.HEAD)) {
+		} else if (httpMethod.equals(HttpMethod.HEAD)) {
 			return head(converter);
-		}
-		else if (httpMethod.equals(HttpMethod.OPTIONS)) {
+		} else if (httpMethod.equals(HttpMethod.OPTIONS)) {
 			return options(converter);
-		}
-		else if (httpMethod.equals(HttpMethod.POST)) {
+		} else if (httpMethod.equals(HttpMethod.POST)) {
 			return post(converter);
-		}
-		else if (httpMethod.equals(HttpMethod.DELETE)) {
+		} else if (httpMethod.equals(HttpMethod.DELETE)) {
 			return delete(converter);
-		}
-		else if (httpMethod.equals(HttpMethod.PUT)) {
+		} else if (httpMethod.equals(HttpMethod.PUT)) {
 			return put(converter);
-		}
-		else if (httpMethod.equals(HttpMethod.PATCH)) {
+		} else if (httpMethod.equals(HttpMethod.PATCH)) {
 			return patch(converter);
 		}
 
@@ -365,16 +357,13 @@ public class ProxyExchange<T> {
 			@SuppressWarnings("unchecked")
 			Publisher<Object> publisher = (Publisher<Object>) requestEntity.getBody();
 			result = builder.body(publisher, Object.class).retrieve();
-		}
-		else if (requestEntity.getBody() != null) {
+		} else if (requestEntity.getBody() != null) {
 			result = builder.body(BodyInserters.fromValue(requestEntity.getBody())).retrieve();
-		}
-		else {
+		} else {
 			if (hasBody) {
 				result = builder.headers(headers -> addHeaders(headers, exchange.getRequest().getHeaders()))
 						.body(exchange.getRequest().getBody(), DataBuffer.class).retrieve();
-			}
-			else {
+			} else {
 				result = builder.headers(headers -> addHeaders(headers, exchange.getRequest().getHeaders())).retrieve();
 			}
 		}
@@ -428,8 +417,7 @@ public class ProxyExchange<T> {
 		String forwarded = headers.getFirst("forwarded");
 		if (forwarded != null) {
 			forwarded = forwarded + ",";
-		}
-		else {
+		} else {
 			forwarded = "";
 		}
 		forwarded = forwarded + forwarded(uri, exchange.getRequest().getHeaders().getFirst("host"));
@@ -460,6 +448,7 @@ public class ProxyExchange<T> {
 	 * Search for the request body if it was already deserialized using
 	 * <code>@RequestBody</code>. If it is not found then deserialize it in the same way
 	 * that it would have been for a <code>@RequestBody</code>.
+	 *
 	 * @return the request body
 	 */
 	private Mono<Object> getRequestBody() {

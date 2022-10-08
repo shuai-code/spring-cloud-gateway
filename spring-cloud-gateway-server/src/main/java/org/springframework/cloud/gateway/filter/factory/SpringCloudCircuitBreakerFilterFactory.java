@@ -54,7 +54,9 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.r
 public abstract class SpringCloudCircuitBreakerFilterFactory
 		extends AbstractGatewayFilterFactory<SpringCloudCircuitBreakerFilterFactory.Config> {
 
-	/** CircuitBreaker component name. */
+	/**
+	 * CircuitBreaker component name.
+	 */
 	public static final String NAME = "CircuitBreaker";
 
 	private ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
@@ -67,7 +69,7 @@ public abstract class SpringCloudCircuitBreakerFilterFactory
 	private volatile DispatcherHandler dispatcherHandler;
 
 	public SpringCloudCircuitBreakerFilterFactory(ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory,
-			ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
+												  ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
 		super(Config.class);
 		this.reactiveCircuitBreakerFactory = reactiveCircuitBreakerFactory;
 		this.dispatcherHandlerProvider = dispatcherHandlerProvider;

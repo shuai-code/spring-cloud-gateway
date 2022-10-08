@@ -74,9 +74,9 @@ public class SetRequestHeaderGatewayFilterFactoryTests extends BaseWebClientTest
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("test_set_request_header",
-					r -> r.order(-1).host("{sub}.setrequestheader.org").filters(f -> f.prefixPath("/httpbin")
-							.addRequestHeader("X-Req-Foo", "First").setRequestHeader("X-Req-Foo", "Second-{sub}"))
-							.uri(uri))
+							r -> r.order(-1).host("{sub}.setrequestheader.org").filters(f -> f.prefixPath("/httpbin")
+											.addRequestHeader("X-Req-Foo", "First").setRequestHeader("X-Req-Foo", "Second-{sub}"))
+									.uri(uri))
 					.build();
 		}
 

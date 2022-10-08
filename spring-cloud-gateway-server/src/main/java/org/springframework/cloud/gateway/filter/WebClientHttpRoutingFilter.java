@@ -54,7 +54,7 @@ public class WebClientHttpRoutingFilter implements GlobalFilter, Ordered {
 	private volatile List<HttpHeadersFilter> headersFilters;
 
 	public WebClientHttpRoutingFilter(WebClient webClient,
-			ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider) {
+									  ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider) {
 		this.webClient = webClient;
 		this.headersFiltersProvider = headersFiltersProvider;
 	}
@@ -100,8 +100,7 @@ public class WebClientHttpRoutingFilter implements GlobalFilter, Ordered {
 		RequestHeadersSpec<?> headersSpec;
 		if (requiresBody(method)) {
 			headersSpec = bodySpec.body(BodyInserters.fromDataBuffers(request.getBody()));
-		}
-		else {
+		} else {
 			headersSpec = bodySpec;
 		}
 

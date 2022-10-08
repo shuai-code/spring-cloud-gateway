@@ -60,8 +60,7 @@ public class ClientCertAuthSSLTests extends SingleCertSSLTests {
 		try {
 			URL url = ResourceUtils.getURL(keyStore);
 			store.load(url.openStream(), keyStorePassword != null ? keyStorePassword.toCharArray() : null);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new WebServerException("Could not load key store ' " + keyStore + "'", e);
 		}
 
@@ -79,8 +78,7 @@ public class ClientCertAuthSSLTests extends SingleCertSSLTests {
 					.keyManager(keyManagerFactory).build();
 			HttpClient httpClient = HttpClient.create().secure(ssl -> ssl.sslContext(sslContext));
 			setup(new ReactorClientHttpConnector(httpClient), "https://localhost:" + port);
-		}
-		catch (SSLException e) {
+		} catch (SSLException e) {
 			throw new RuntimeException(e);
 		}
 	}

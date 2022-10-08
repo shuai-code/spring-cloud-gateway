@@ -36,14 +36,14 @@ public class SecureHeadersProperties {
 	 * Strict transport security header default.
 	 */
 	public static final String STRICT_TRANSPORT_SECURITY_HEADER_DEFAULT = "max-age=631138519"; // ;
-																								// includeSubDomains
-																								// preload")
+	// includeSubDomains
+	// preload")
 
 	/**
 	 * Frame Options header default.
 	 */
 	public static final String X_FRAME_OPTIONS_HEADER_DEFAULT = "DENY"; // SAMEORIGIN =
-																		// ALLOW-FROM
+	// ALLOW-FROM
 
 	/**
 	 * Content-Type Options header default.
@@ -54,18 +54,18 @@ public class SecureHeadersProperties {
 	 * Referrer Policy header default.
 	 */
 	public static final String REFERRER_POLICY_HEADER_DEFAULT = "no-referrer"; // no-referrer-when-downgrade
-																				// =
-																				// origin
-																				// =
-																				// origin-when-cross-origin
-																				// =
-																				// same-origin
-																				// =
-																				// strict-origin
-																				// =
-																				// strict-origin-when-cross-origin
-																				// =
-																				// unsafe-url
+	// =
+	// origin
+	// =
+	// origin-when-cross-origin
+	// =
+	// same-origin
+	// =
+	// strict-origin
+	// =
+	// strict-origin-when-cross-origin
+	// =
+	// unsafe-url
 
 	/**
 	 * Content-Security Policy header default.

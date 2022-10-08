@@ -45,9 +45,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GatewayLegacyControllerEndpoint extends AbstractGatewayControllerEndpoint {
 
 	public GatewayLegacyControllerEndpoint(RouteDefinitionLocator routeDefinitionLocator,
-			List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilterFactories,
-			List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
-			RouteLocator routeLocator) {
+										   List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilterFactories,
+										   List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
+										   RouteLocator routeLocator) {
 		super(routeDefinitionLocator, globalFilters, gatewayFilterFactories, routePredicates, routeDefinitionWriter,
 				routeLocator);
 	}
@@ -69,8 +69,7 @@ public class GatewayLegacyControllerEndpoint extends AbstractGatewayControllerEn
 
 				if (defs.containsKey(route.getId())) {
 					r.put("route_definition", defs.get(route.getId()));
-				}
-				else {
+				} else {
 					HashMap<String, Object> obj = new HashMap<>();
 
 					obj.put("predicate", route.getPredicate().toString());

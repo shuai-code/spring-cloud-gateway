@@ -105,17 +105,23 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 	 */
 	private String remainingHeader = REMAINING_HEADER;
 
-	/** The name of the header that returns the replenish rate configuration. */
+	/**
+	 * The name of the header that returns the replenish rate configuration.
+	 */
 	private String replenishRateHeader = REPLENISH_RATE_HEADER;
 
-	/** The name of the header that returns the burst capacity configuration. */
+	/**
+	 * The name of the header that returns the burst capacity configuration.
+	 */
 	private String burstCapacityHeader = BURST_CAPACITY_HEADER;
 
-	/** The name of the header that returns the requested tokens configuration. */
+	/**
+	 * The name of the header that returns the requested tokens configuration.
+	 */
 	private String requestedTokensHeader = REQUESTED_TOKENS_HEADER;
 
 	public RedisRateLimiter(ReactiveStringRedisTemplate redisTemplate, RedisScript<List<Long>> script,
-			ConfigurationService configurationService) {
+							ConfigurationService configurationService) {
 		super(Config.class, CONFIGURATION_PROPERTY_NAME, configurationService);
 		this.redisTemplate = redisTemplate;
 		this.script = script;
@@ -124,9 +130,10 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 
 	/**
 	 * This creates an instance with default static configuration, useful in Java DSL.
+	 *
 	 * @param defaultReplenishRate how many tokens per second in token-bucket algorithm.
 	 * @param defaultBurstCapacity how many tokens the bucket can hold in token-bucket
-	 * algorithm.
+	 *                             algorithm.
 	 */
 	public RedisRateLimiter(int defaultReplenishRate, int defaultBurstCapacity) {
 		super(Config.class, CONFIGURATION_PROPERTY_NAME, (ConfigurationService) null);
@@ -135,9 +142,10 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 
 	/**
 	 * This creates an instance with default static configuration, useful in Java DSL.
-	 * @param defaultReplenishRate how many tokens per second in token-bucket algorithm.
-	 * @param defaultBurstCapacity how many tokens the bucket can hold in token-bucket
-	 * algorithm.
+	 *
+	 * @param defaultReplenishRate   how many tokens per second in token-bucket algorithm.
+	 * @param defaultBurstCapacity   how many tokens the bucket can hold in token-bucket
+	 *                               algorithm.
 	 * @param defaultRequestedTokens how many tokens are requested per request.
 	 */
 	public RedisRateLimiter(int defaultReplenishRate, int defaultBurstCapacity, int defaultRequestedTokens) {
@@ -200,6 +208,7 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 
 	/**
 	 * Used when setting default configuration in constructor.
+	 *
 	 * @param context the ApplicationContext object to be used by this object
 	 * @throws BeansException if thrown by application context methods
 	 */
@@ -271,8 +280,7 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 				}
 				return response;
 			});
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			/*
 			 * We don't want a hard dependency on Redis to allow traffic. Make sure to set
 			 * an alert so you know if this is happening too much. Stripe's observed

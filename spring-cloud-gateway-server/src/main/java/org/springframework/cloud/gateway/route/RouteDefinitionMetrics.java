@@ -42,13 +42,12 @@ public class RouteDefinitionMetrics implements ApplicationListener<RefreshRoutes
 	private final String metricsPrefix;
 
 	public RouteDefinitionMetrics(MeterRegistry meterRegistry, RouteDefinitionLocator routeLocator,
-			String metricsPrefix) {
+								  String metricsPrefix) {
 		this.routeLocator = routeLocator;
 
 		if (metricsPrefix.endsWith(".")) {
 			this.metricsPrefix = metricsPrefix.substring(0, metricsPrefix.length() - 1);
-		}
-		else {
+		} else {
 			this.metricsPrefix = metricsPrefix;
 		}
 		routeDefinitionCount = meterRegistry.gauge(this.metricsPrefix + ".routes.count", new AtomicInteger(0));

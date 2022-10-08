@@ -35,67 +35,109 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 @ConfigurationProperties("spring.cloud.gateway.x-forwarded")
 public class XForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 
-	/** Default http port. */
+	/**
+	 * Default http port.
+	 */
 	public static final int HTTP_PORT = 80;
 
-	/** Default https port. */
+	/**
+	 * Default https port.
+	 */
 	public static final int HTTPS_PORT = 443;
 
-	/** Http url scheme. */
+	/**
+	 * Http url scheme.
+	 */
 	public static final String HTTP_SCHEME = "http";
 
-	/** Https url scheme. */
+	/**
+	 * Https url scheme.
+	 */
 	public static final String HTTPS_SCHEME = "https";
 
-	/** X-Forwarded-For Header. */
+	/**
+	 * X-Forwarded-For Header.
+	 */
 	public static final String X_FORWARDED_FOR_HEADER = "X-Forwarded-For";
 
-	/** X-Forwarded-Host Header. */
+	/**
+	 * X-Forwarded-Host Header.
+	 */
 	public static final String X_FORWARDED_HOST_HEADER = "X-Forwarded-Host";
 
-	/** X-Forwarded-Port Header. */
+	/**
+	 * X-Forwarded-Port Header.
+	 */
 	public static final String X_FORWARDED_PORT_HEADER = "X-Forwarded-Port";
 
-	/** X-Forwarded-Proto Header. */
+	/**
+	 * X-Forwarded-Proto Header.
+	 */
 	public static final String X_FORWARDED_PROTO_HEADER = "X-Forwarded-Proto";
 
-	/** X-Forwarded-Prefix Header. */
+	/**
+	 * X-Forwarded-Prefix Header.
+	 */
 	public static final String X_FORWARDED_PREFIX_HEADER = "X-Forwarded-Prefix";
 
-	/** The order of the XForwardedHeadersFilter. */
+	/**
+	 * The order of the XForwardedHeadersFilter.
+	 */
 	private int order = 0;
 
-	/** If the XForwardedHeadersFilter is enabled. */
+	/**
+	 * If the XForwardedHeadersFilter is enabled.
+	 */
 	private boolean enabled = true;
 
-	/** If X-Forwarded-For is enabled. */
+	/**
+	 * If X-Forwarded-For is enabled.
+	 */
 	private boolean forEnabled = true;
 
-	/** If X-Forwarded-Host is enabled. */
+	/**
+	 * If X-Forwarded-Host is enabled.
+	 */
 	private boolean hostEnabled = true;
 
-	/** If X-Forwarded-Port is enabled. */
+	/**
+	 * If X-Forwarded-Port is enabled.
+	 */
 	private boolean portEnabled = true;
 
-	/** If X-Forwarded-Proto is enabled. */
+	/**
+	 * If X-Forwarded-Proto is enabled.
+	 */
 	private boolean protoEnabled = true;
 
-	/** If X-Forwarded-Prefix is enabled. */
+	/**
+	 * If X-Forwarded-Prefix is enabled.
+	 */
 	private boolean prefixEnabled = true;
 
-	/** If appending X-Forwarded-For as a list is enabled. */
+	/**
+	 * If appending X-Forwarded-For as a list is enabled.
+	 */
 	private boolean forAppend = true;
 
-	/** If appending X-Forwarded-Host as a list is enabled. */
+	/**
+	 * If appending X-Forwarded-Host as a list is enabled.
+	 */
 	private boolean hostAppend = true;
 
-	/** If appending X-Forwarded-Port as a list is enabled. */
+	/**
+	 * If appending X-Forwarded-Port as a list is enabled.
+	 */
 	private boolean portAppend = true;
 
-	/** If appending X-Forwarded-Proto as a list is enabled. */
+	/**
+	 * If appending X-Forwarded-Proto as a list is enabled.
+	 */
 	private boolean protoAppend = true;
 
-	/** If appending X-Forwarded-Prefix as a list is enabled. */
+	/**
+	 * If appending X-Forwarded-Prefix as a list is enabled.
+	 */
 	private boolean prefixAppend = true;
 
 	@Override
@@ -293,8 +335,7 @@ public class XForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 			List<String> values = headers.get(name);
 			String delimitedValue = StringUtils.collectionToCommaDelimitedString(values);
 			headers.set(name, delimitedValue);
-		}
-		else {
+		} else {
 			headers.set(name, value);
 		}
 	}
@@ -315,8 +356,7 @@ public class XForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 		if (port < 0 || (port == HTTP_PORT && HTTP_SCHEME.equals(scheme))
 				|| (port == HTTPS_PORT && HTTPS_SCHEME.equals(scheme))) {
 			return host;
-		}
-		else {
+		} else {
 			return host + ":" + port;
 		}
 	}
@@ -324,8 +364,7 @@ public class XForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 	private String stripTrailingSlash(URI uri) {
 		if (uri.getPath().endsWith("/")) {
 			return uri.getPath().substring(0, uri.getPath().length() - 1);
-		}
-		else {
+		} else {
 			return uri.getPath();
 		}
 	}

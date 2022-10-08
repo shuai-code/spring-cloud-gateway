@@ -51,34 +51,54 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class HttpClientProperties {
 
-	/** The connect timeout in millis, the default is 45s. */
+	/**
+	 * The connect timeout in millis, the default is 45s.
+	 */
 	private Integer connectTimeout;
 
-	/** The response timeout. */
+	/**
+	 * The response timeout.
+	 */
 	private Duration responseTimeout;
 
-	/** The max response header size. */
+	/**
+	 * The max response header size.
+	 */
 	private DataSize maxHeaderSize;
 
-	/** The max initial line length. */
+	/**
+	 * The max initial line length.
+	 */
 	private DataSize maxInitialLineLength;
 
-	/** Pool configuration for Netty HttpClient. */
+	/**
+	 * Pool configuration for Netty HttpClient.
+	 */
 	private Pool pool = new Pool();
 
-	/** Proxy configuration for Netty HttpClient. */
+	/**
+	 * Proxy configuration for Netty HttpClient.
+	 */
 	private Proxy proxy = new Proxy();
 
-	/** SSL configuration for Netty HttpClient. */
+	/**
+	 * SSL configuration for Netty HttpClient.
+	 */
 	private Ssl ssl = new Ssl();
 
-	/** Websocket configuration for Netty HttpClient. */
+	/**
+	 * Websocket configuration for Netty HttpClient.
+	 */
 	private Websocket websocket = new Websocket();
 
-	/** Enables wiretap debugging for Netty HttpClient. */
+	/**
+	 * Enables wiretap debugging for Netty HttpClient.
+	 */
 	private boolean wiretap;
 
-	/** Enables compression for Netty HttpClient. */
+	/**
+	 * Enables compression for Netty HttpClient.
+	 */
 	private boolean compression;
 
 	public Integer getConnectTimeout() {
@@ -184,10 +204,14 @@ public class HttpClientProperties {
 
 	public static class Pool {
 
-		/** Type of pool for HttpClient to use, defaults to ELASTIC. */
+		/**
+		 * Type of pool for HttpClient to use, defaults to ELASTIC.
+		 */
 		private PoolType type = PoolType.ELASTIC;
 
-		/** The channel pool map name, defaults to proxy. */
+		/**
+		 * The channel pool map name, defaults to proxy.
+		 */
 		private String name = "proxy";
 
 		/**
@@ -196,7 +220,9 @@ public class HttpClientProperties {
 		 */
 		private Integer maxConnections = ConnectionProvider.DEFAULT_POOL_MAX_CONNECTIONS;
 
-		/** Only for type FIXED, the maximum time in millis to wait for acquiring. */
+		/**
+		 * Only for type FIXED, the maximum time in millis to wait for acquiring.
+		 */
 		private Long acquireTimeout = ConnectionProvider.DEFAULT_POOL_ACQUIRE_TIMEOUT;
 
 		/**
@@ -317,19 +343,29 @@ public class HttpClientProperties {
 
 	public static class Proxy {
 
-		/** proxyType for proxy configuration of Netty HttpClient. */
+		/**
+		 * proxyType for proxy configuration of Netty HttpClient.
+		 */
 		private ProxyProvider.Proxy type = ProxyProvider.Proxy.HTTP;
 
-		/** Hostname for proxy configuration of Netty HttpClient. */
+		/**
+		 * Hostname for proxy configuration of Netty HttpClient.
+		 */
 		private String host;
 
-		/** Port for proxy configuration of Netty HttpClient. */
+		/**
+		 * Port for proxy configuration of Netty HttpClient.
+		 */
 		private Integer port;
 
-		/** Username for proxy configuration of Netty HttpClient. */
+		/**
+		 * Username for proxy configuration of Netty HttpClient.
+		 */
 		private String username;
 
-		/** Password for proxy configuration of Netty HttpClient. */
+		/**
+		 * Password for proxy configuration of Netty HttpClient.
+		 */
 		private String password;
 
 		/**
@@ -403,36 +439,56 @@ public class HttpClientProperties {
 		 */
 		private boolean useInsecureTrustManager = false;
 
-		/** Trusted certificates for verifying the remote endpoint's certificate. */
+		/**
+		 * Trusted certificates for verifying the remote endpoint's certificate.
+		 */
 		private List<String> trustedX509Certificates = new ArrayList<>();
 
 		// use netty default SSL timeouts
-		/** SSL handshake timeout. Default to 10000 ms */
+		/**
+		 * SSL handshake timeout. Default to 10000 ms
+		 */
 		private Duration handshakeTimeout = Duration.ofMillis(10000);
 
-		/** SSL close_notify flush timeout. Default to 3000 ms. */
+		/**
+		 * SSL close_notify flush timeout. Default to 3000 ms.
+		 */
 		private Duration closeNotifyFlushTimeout = Duration.ofMillis(3000);
 
-		/** SSL close_notify read timeout. Default to 0 ms. */
+		/**
+		 * SSL close_notify read timeout. Default to 0 ms.
+		 */
 		private Duration closeNotifyReadTimeout = Duration.ZERO;
 
-		/** The default ssl configuration type. Defaults to TCP. */
+		/**
+		 * The default ssl configuration type. Defaults to TCP.
+		 */
 		@Deprecated
 		private SslProvider.DefaultConfigurationType defaultConfigurationType = SslProvider.DefaultConfigurationType.TCP;
 
-		/** Keystore path for Netty HttpClient. */
+		/**
+		 * Keystore path for Netty HttpClient.
+		 */
 		private String keyStore;
 
-		/** Keystore type for Netty HttpClient, default is JKS. */
+		/**
+		 * Keystore type for Netty HttpClient, default is JKS.
+		 */
 		private String keyStoreType = "JKS";
 
-		/** Keystore provider for Netty HttpClient, optional field. */
+		/**
+		 * Keystore provider for Netty HttpClient, optional field.
+		 */
 		private String keyStoreProvider;
 
-		/** Keystore password. */
+		/**
+		 * Keystore password.
+		 */
 		private String keyStorePassword;
 
-		/** Key password, default is same as keyStorePassword. */
+		/**
+		 * Key password, default is same as keyStorePassword.
+		 */
 		private String keyPassword;
 
 		public String getKeyStorePassword() {
@@ -494,14 +550,12 @@ public class HttpClientProperties {
 						Collection<? extends Certificate> certs = certificateFactory
 								.generateCertificates(url.openStream());
 						allCerts.addAll(certs);
-					}
-					catch (IOException e) {
+					} catch (IOException e) {
 						throw new WebServerException("Could not load certificate '" + trustedCert + "'", e);
 					}
 				}
 				return allCerts.toArray(new X509Certificate[allCerts.size()]);
-			}
-			catch (CertificateException e1) {
+			} catch (CertificateException e1) {
 				throw new WebServerException("Could not load CertificateFactory X.509", e1);
 			}
 		}
@@ -524,8 +578,7 @@ public class HttpClientProperties {
 				}
 
 				return null;
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				throw new IllegalStateException(e);
 			}
 		}
@@ -540,14 +593,12 @@ public class HttpClientProperties {
 					URL url = ResourceUtils.getURL(getKeyStore());
 					store.load(url.openStream(),
 							getKeyStorePassword() != null ? getKeyStorePassword().toCharArray() : null);
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					throw new WebServerException("Could not load key store ' " + getKeyStore() + "'", e);
 				}
 
 				return store;
-			}
-			catch (KeyStoreException | NoSuchProviderException e) {
+			} catch (KeyStoreException | NoSuchProviderException e) {
 				throw new WebServerException("Could not load KeyStore for given type and provider", e);
 			}
 		}
@@ -610,10 +661,14 @@ public class HttpClientProperties {
 
 	public static class Websocket {
 
-		/** Max frame payload length. */
+		/**
+		 * Max frame payload length.
+		 */
 		private Integer maxFramePayloadLength;
 
-		/** Proxy ping frames to downstream services, defaults to true. */
+		/**
+		 * Proxy ping frames to downstream services, defaults to true.
+		 */
 		private boolean proxyPing = true;
 
 		public Integer getMaxFramePayloadLength() {

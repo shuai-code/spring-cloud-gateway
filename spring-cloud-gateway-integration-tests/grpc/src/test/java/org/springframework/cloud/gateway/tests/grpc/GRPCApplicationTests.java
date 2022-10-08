@@ -63,7 +63,7 @@ public class GRPCApplicationTests {
 	}
 
 	private TrustManager[] createTrustAllTrustManager() {
-		return new TrustManager[] { new X509TrustManager() {
+		return new TrustManager[]{new X509TrustManager() {
 			public X509Certificate[] getAcceptedIssuers() {
 				return new X509Certificate[0];
 			}
@@ -73,7 +73,7 @@ public class GRPCApplicationTests {
 
 			public void checkServerTrusted(X509Certificate[] certs, String authType) {
 			}
-		} };
+		}};
 	}
 
 }

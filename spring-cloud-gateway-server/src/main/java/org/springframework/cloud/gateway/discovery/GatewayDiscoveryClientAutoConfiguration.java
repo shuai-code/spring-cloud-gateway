@@ -48,7 +48,7 @@ import static org.springframework.cloud.gateway.support.NameUtils.normalizeRoute
 @ConditionalOnProperty(name = "spring.cloud.gateway.enabled", matchIfMissing = true)
 @AutoConfigureBefore(GatewayAutoConfiguration.class)
 @AutoConfigureAfter(CompositeDiscoveryClientAutoConfiguration.class)
-@ConditionalOnClass({ DispatcherHandler.class, CompositeDiscoveryClientAutoConfiguration.class })
+@ConditionalOnClass({DispatcherHandler.class, CompositeDiscoveryClientAutoConfiguration.class})
 @EnableConfigurationProperties
 public class GatewayDiscoveryClientAutoConfiguration {
 

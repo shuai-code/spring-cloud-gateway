@@ -38,8 +38,7 @@ public class GzipMessageBodyResolver implements MessageBodyDecoder, MessageBodyE
 			ByteArrayInputStream bis = new ByteArrayInputStream(encoded);
 			GZIPInputStream gis = new GZIPInputStream(bis);
 			return FileCopyUtils.copyToByteArray(gis);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalStateException("couldn't decode body from gzip", e);
 		}
 	}
@@ -51,8 +50,7 @@ public class GzipMessageBodyResolver implements MessageBodyDecoder, MessageBodyE
 			GZIPOutputStream gos = new GZIPOutputStream(bis);
 			FileCopyUtils.copy(original.asInputStream(), gos);
 			return bis.toByteArray();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalStateException("couldn't encode body to gzip", e);
 		}
 	}

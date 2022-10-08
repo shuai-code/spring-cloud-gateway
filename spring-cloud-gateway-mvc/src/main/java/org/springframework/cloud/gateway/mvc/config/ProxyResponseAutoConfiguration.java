@@ -47,7 +47,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication
-@ConditionalOnClass({ HandlerMethodReturnValueHandler.class })
+@ConditionalOnClass({HandlerMethodReturnValueHandler.class})
 @EnableConfigurationProperties(ProxyProperties.class)
 public class ProxyResponseAutoConfiguration implements WebMvcConfigurer {
 
@@ -57,7 +57,7 @@ public class ProxyResponseAutoConfiguration implements WebMvcConfigurer {
 	@Bean
 	@ConditionalOnMissingBean
 	public ProxyExchangeArgumentResolver proxyExchangeArgumentResolver(Optional<RestTemplateBuilder> optional,
-			ProxyProperties proxy) {
+																	   ProxyProperties proxy) {
 		RestTemplateBuilder builder = optional.orElse(new RestTemplateBuilder());
 		RestTemplate template = builder.build();
 		template.setErrorHandler(new NoOpResponseErrorHandler());

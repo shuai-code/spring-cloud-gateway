@@ -32,7 +32,7 @@ public abstract class AbstractRateLimiter<C> extends AbstractStatefulConfigurabl
 	private ConfigurationService configurationService;
 
 	protected AbstractRateLimiter(Class<C> configClass, String configurationPropertyName,
-			ConfigurationService configurationService) {
+								  ConfigurationService configurationService) {
 		super(configClass);
 		this.configurationPropertyName = configurationPropertyName;
 		this.configurationService = configurationService;

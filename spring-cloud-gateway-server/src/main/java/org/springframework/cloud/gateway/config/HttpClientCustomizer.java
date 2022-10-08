@@ -23,6 +23,7 @@ public interface HttpClientCustomizer {
 
 	/**
 	 * Customize the specified {@link HttpClient}.
+	 *
 	 * @param httpClient the http client to customize.
 	 * @return the customized HttpClient.
 	 */

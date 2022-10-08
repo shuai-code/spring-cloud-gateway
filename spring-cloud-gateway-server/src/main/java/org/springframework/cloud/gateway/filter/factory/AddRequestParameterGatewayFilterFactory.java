@@ -63,8 +63,7 @@ public class AddRequestParameterGatewayFilterFactory extends AbstractNameValueGa
 					ServerHttpRequest request = exchange.getRequest().mutate().uri(newUri).build();
 
 					return chain.filter(exchange.mutate().request(request).build());
-				}
-				catch (RuntimeException ex) {
+				} catch (RuntimeException ex) {
 					throw new IllegalStateException("Invalid URI query: \"" + query.toString() + "\"");
 				}
 			}

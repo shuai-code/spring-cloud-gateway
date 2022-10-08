@@ -28,8 +28,7 @@ public class OnEnabledFilter extends OnEnabledComponent<GatewayFilterFactory<?>>
 		if (SpringCloudCircuitBreakerFilterFactory.class.isAssignableFrom(filterClass)) {
 			return "filter."
 					+ NameUtils.normalizeToCanonicalPropertyFormat(SpringCloudCircuitBreakerFilterFactory.NAME);
-		}
-		else {
+		} else {
 			return "filter." + NameUtils.normalizeFilterFactoryNameAsProperty(filterClass);
 		}
 	}

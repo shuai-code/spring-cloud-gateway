@@ -28,7 +28,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 /**
  * Save the current {@link WebSession} before executing the rest of the
  * {@link org.springframework.cloud.gateway.filter.GatewayFilterChain}.
- *
+ * <p>
  * Filter is very useful for situation where the WebSession is lazy (e.g. Spring Session
  * MongoDB) and making a remote call requires that {@link WebSession#save()} be called
  * before the remote call is made.

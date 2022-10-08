@@ -45,18 +45,18 @@ import static org.springframework.cloud.gateway.handler.predicate.RoutePredicate
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DiscoveryClientRouteDefinitionLocatorTests.Config.class,
-		properties = { "spring.cloud.gateway.discovery.locator.enabled=true",
+		properties = {"spring.cloud.gateway.discovery.locator.enabled=true",
 				"spring.cloud.gateway.discovery.locator.route-id-prefix=testedge_",
 				"spring.cloud.gateway.discovery.locator.include-expression=metadata['edge'] == 'true'",
 				"spring.cloud.gateway.discovery.locator.lower-case-service-id=true"
-		/*
-		 * "spring.cloud.gateway.discovery.locator.predicates[0].name=Path",
-		 * "spring.cloud.gateway.discovery.locator.predicates[0].args[pattern]='/'+serviceId.toLowerCase()+'/**'",
-		 * "spring.cloud.gateway.discovery.locator.filters[0].name=RewritePath",
-		 * "spring.cloud.gateway.discovery.locator.filters[0].args[regexp]='/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
-		 * ,
-		 * "spring.cloud.gateway.discovery.locator.filters[0].args[replacement]='/$\\\\{remaining}'",
-		 */
+				/*
+				 * "spring.cloud.gateway.discovery.locator.predicates[0].name=Path",
+				 * "spring.cloud.gateway.discovery.locator.predicates[0].args[pattern]='/'+serviceId.toLowerCase()+'/**'",
+				 * "spring.cloud.gateway.discovery.locator.filters[0].name=RewritePath",
+				 * "spring.cloud.gateway.discovery.locator.filters[0].args[regexp]='/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
+				 * ,
+				 * "spring.cloud.gateway.discovery.locator.filters[0].args[replacement]='/$\\\\{remaining}'",
+				 */
 		})
 public class DiscoveryClientRouteDefinitionLocatorTests {
 
@@ -118,13 +118,12 @@ public class DiscoveryClientRouteDefinitionLocatorTests {
 		}
 
 		private void whenInstance(ReactiveDiscoveryClient discoveryClient, String serviceId,
-				Map<String, String> metadata) {
+								  Map<String, String> metadata) {
 			if ("SERVICE1".equals(serviceId) || "Service2".equals(serviceId)) {
 				DefaultServiceInstance instance1 = new DefaultServiceInstance(serviceId + "8001", serviceId,
 						"localhost", 8001, false, metadata);
 				when(discoveryClient.getInstances(serviceId)).thenReturn(Flux.just(instance1));
-			}
-			else if ("service3".equalsIgnoreCase(serviceId)) {
+			} else if ("service3".equalsIgnoreCase(serviceId)) {
 				// given 3 instances, only one routedefinition should be created
 				DefaultServiceInstance instance2 = new DefaultServiceInstance(serviceId + "8002", serviceId,
 						"localhost", 8002, false, Collections.emptyMap());

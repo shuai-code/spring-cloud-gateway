@@ -50,7 +50,7 @@ public class RoutePredicateHandlerMapping extends AbstractHandlerMapping {
 	private final ManagementPortType managementPortType;
 
 	public RoutePredicateHandlerMapping(FilteringWebHandler webHandler, RouteLocator routeLocator,
-			GlobalCorsProperties globalCorsProperties, Environment environment) {
+										GlobalCorsProperties globalCorsProperties, Environment environment) {
 		this.webHandler = webHandler;
 		this.routeLocator = routeLocator;
 
@@ -124,10 +124,10 @@ public class RoutePredicateHandlerMapping extends AbstractHandlerMapping {
 				// individually filter routes so that filterWhen error delaying is not a
 				// problem
 				.concatMap(route -> Mono.just(route).filterWhen(r -> {
-					// add the current route we are testing
-					exchange.getAttributes().put(GATEWAY_PREDICATE_ROUTE_ATTR, r.getId());
-					return r.getPredicate().apply(exchange);
-				})
+							// add the current route we are testing
+							exchange.getAttributes().put(GATEWAY_PREDICATE_ROUTE_ATTR, r.getId());
+							return r.getPredicate().apply(exchange);
+						})
 						// instead of immediately stopping main flux due to error, log and
 						// swallow it
 						.doOnError(e -> logger.error("Error applying predicate for route: " + route.getId(), e))
@@ -156,7 +156,8 @@ public class RoutePredicateHandlerMapping extends AbstractHandlerMapping {
 	 * <p>
 	 * The default implementation is empty. Can be overridden in subclasses, for example
 	 * to enforce specific preconditions expressed in URL mappings.
-	 * @param route the Route object to validate
+	 *
+	 * @param route    the Route object to validate
 	 * @param exchange current exchange
 	 * @throws Exception if validation failed
 	 */

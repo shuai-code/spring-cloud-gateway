@@ -43,6 +43,7 @@ public class BooleanSpec extends UriSpec {
 
 	/**
 	 * Apply logical {@code and} operator.
+	 *
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanOpSpec and() {
@@ -51,6 +52,7 @@ public class BooleanSpec extends UriSpec {
 
 	/**
 	 * Apply logical {@code or} operator.
+	 *
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanOpSpec or() {
@@ -59,6 +61,7 @@ public class BooleanSpec extends UriSpec {
 
 	/**
 	 * Negate the logical operator.
+	 *
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec negate() {
@@ -68,8 +71,9 @@ public class BooleanSpec extends UriSpec {
 
 	/**
 	 * Add filters to the route definition.
+	 *
 	 * @param fn A {@link Function} that takes in a {@link GatewayFilterSpec} and returns
-	 * a {@link UriSpec}
+	 *           a {@link UriSpec}
 	 * @return a {@link UriSpec}
 	 */
 	public UriSpec filters(Function<GatewayFilterSpec, UriSpec> fn) {

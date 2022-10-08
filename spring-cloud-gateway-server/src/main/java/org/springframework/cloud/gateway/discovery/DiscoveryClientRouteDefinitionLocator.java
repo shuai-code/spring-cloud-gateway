@@ -58,7 +58,7 @@ public class DiscoveryClientRouteDefinitionLocator implements RouteDefinitionLoc
 	private Flux<List<ServiceInstance>> serviceInstances;
 
 	public DiscoveryClientRouteDefinitionLocator(ReactiveDiscoveryClient discoveryClient,
-			DiscoveryLocatorProperties properties) {
+												 DiscoveryLocatorProperties properties) {
 		this(discoveryClient.getClass().getSimpleName(), properties);
 		serviceInstances = discoveryClient.getServices()
 				.flatMap(service -> discoveryClient.getInstances(service).collectList());
@@ -68,8 +68,7 @@ public class DiscoveryClientRouteDefinitionLocator implements RouteDefinitionLoc
 		this.properties = properties;
 		if (StringUtils.hasText(properties.getRouteIdPrefix())) {
 			routeIdPrefix = properties.getRouteIdPrefix();
-		}
-		else {
+		} else {
 			routeIdPrefix = discoveryClientName + "_";
 		}
 		evalCtxt = SimpleEvaluationContext.forReadOnlyDataBinding().withInstanceMethods().build();
@@ -85,8 +84,7 @@ public class DiscoveryClientRouteDefinitionLocator implements RouteDefinitionLoc
 		Predicate<ServiceInstance> includePredicate;
 		if (properties.getIncludeExpression() == null || "true".equalsIgnoreCase(properties.getIncludeExpression())) {
 			includePredicate = instance -> true;
-		}
-		else {
+		} else {
 			includePredicate = instance -> {
 				Boolean include = includeExpr.getValue(evalCtxt, instance, Boolean.class);
 				if (include == null) {
@@ -140,12 +138,11 @@ public class DiscoveryClientRouteDefinitionLocator implements RouteDefinitionLoc
 	}
 
 	String getValueFromExpr(SimpleEvaluationContext evalCtxt, SpelExpressionParser parser, ServiceInstance instance,
-			Map.Entry<String, String> entry) {
+							Map.Entry<String, String> entry) {
 		try {
 			Expression valueExpr = parser.parseExpression(entry.getValue());
 			return valueExpr.getValue(evalCtxt, instance, String.class);
-		}
-		catch (ParseException | EvaluationException e) {
+		} catch (ParseException | EvaluationException e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Unable to parse " + entry.getValue(), e);
 			}

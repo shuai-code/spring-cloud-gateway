@@ -31,6 +31,7 @@ public interface GatewayFilterChain {
 
 	/**
 	 * Delegate to the next {@code WebFilter} in the chain.
+	 *
 	 * @param exchange the current server exchange
 	 * @return {@code Mono<Void>} to indicate when request handling is complete
 	 */

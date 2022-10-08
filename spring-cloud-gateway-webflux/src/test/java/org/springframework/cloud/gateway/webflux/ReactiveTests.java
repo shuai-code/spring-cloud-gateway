@@ -68,7 +68,7 @@ public class ReactiveTests {
 	@Test
 	public void postBytes() throws Exception {
 		ResponseEntity<List<Foo>> result = rest.exchange(RequestEntity
-				.post(rest.getRestTemplate().getUriTemplateHandler().expand("/bytes")).body("hello foo".getBytes()),
+						.post(rest.getRestTemplate().getUriTemplateHandler().expand("/bytes")).body("hello foo".getBytes()),
 				new ParameterizedTypeReference<List<Foo>>() {
 				});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);

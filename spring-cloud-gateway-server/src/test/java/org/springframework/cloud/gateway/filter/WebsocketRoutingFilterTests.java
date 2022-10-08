@@ -105,8 +105,7 @@ public class WebsocketRoutingFilterTests {
 		assertThat(httpHeaders).doesNotContainKeys("Sec-Websocket-Something").containsKey("x-foo");
 		if (preserveHostHeader) {
 			assertThat(httpHeaders).containsKey(HOST);
-		}
-		else {
+		} else {
 			assertThat(httpHeaders).doesNotContainKeys(HOST);
 		}
 	}

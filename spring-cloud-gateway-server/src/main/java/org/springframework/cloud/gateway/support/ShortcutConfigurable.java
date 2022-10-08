@@ -70,8 +70,7 @@ public interface ShortcutConfigurable {
 			GatewayEvaluationContext context = new GatewayEvaluationContext(beanFactory);
 			Expression expression = parser.parseExpression(entryValue, new TemplateParserContext());
 			value = expression.getValue(context);
-		}
-		else {
+		} else {
 			value = entryValue;
 		}
 		return value;
@@ -83,6 +82,7 @@ public interface ShortcutConfigurable {
 
 	/**
 	 * Returns hints about the number of args and the order for shortcut parsing.
+	 *
 	 * @return the list of hints
 	 */
 	default List<String> shortcutFieldOrder() {
@@ -101,7 +101,7 @@ public interface ShortcutConfigurable {
 		DEFAULT {
 			@Override
 			public Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-					SpelExpressionParser parser, BeanFactory beanFactory) {
+												 SpelExpressionParser parser, BeanFactory beanFactory) {
 				Map<String, Object> map = new HashMap<>();
 				int entryIdx = 0;
 				for (Map.Entry<String, String> entry : args.entrySet()) {
@@ -121,7 +121,7 @@ public interface ShortcutConfigurable {
 		GATHER_LIST {
 			@Override
 			public Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-					SpelExpressionParser parser, BeanFactory beanFactory) {
+												 SpelExpressionParser parser, BeanFactory beanFactory) {
 				Map<String, Object> map = new HashMap<>();
 				// field order should be of size 1
 				List<String> fieldOrder = shortcutConf.shortcutFieldOrder();
@@ -140,7 +140,7 @@ public interface ShortcutConfigurable {
 		GATHER_LIST_TAIL_FLAG {
 			@Override
 			public Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-					SpelExpressionParser parser, BeanFactory beanFactory) {
+												 SpelExpressionParser parser, BeanFactory beanFactory) {
 				Map<String, Object> map = new HashMap<>();
 				// field order should be of size 1
 				List<String> fieldOrder = shortcutConf.shortcutFieldOrder();
@@ -164,7 +164,7 @@ public interface ShortcutConfigurable {
 		};
 
 		public abstract Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-				SpelExpressionParser parser, BeanFactory beanFactory);
+													  SpelExpressionParser parser, BeanFactory beanFactory);
 
 	}
 
@@ -182,8 +182,7 @@ public interface ShortcutConfigurable {
 			if (restrictive) {
 				delegate = SimpleEvaluationContext.forPropertyAccessors(new RestrictivePropertyAccessor())
 						.withMethodResolvers((context, targetObject, name, argumentTypes) -> null).build();
-			}
-			else {
+			} else {
 				delegate = SimpleEvaluationContext.forReadOnlyDataBinding().build();
 			}
 		}

@@ -84,13 +84,13 @@ class RouteLocatorDsl(val builder: RouteLocatorBuilder) {
      * A helper to return a composed [Predicate] that tests against this [Predicate] AND the [other] predicate
      */
     infix fun BooleanSpec.and(other: BooleanSpec) =
-            this.routeBuilder.asyncPredicate(this.predicate.and(other.predicate))
+        this.routeBuilder.asyncPredicate(this.predicate.and(other.predicate))
 
     /**
      * A helper to return a composed [Predicate] that tests against this [Predicate] OR the [other] predicate
      */
     infix fun BooleanSpec.or(other: BooleanSpec) =
-            this.routeBuilder.asyncPredicate(this.predicate.or(other.predicate))
+        this.routeBuilder.asyncPredicate(this.predicate.or(other.predicate))
 
 
 }

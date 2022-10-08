@@ -64,7 +64,7 @@ public class WeightCalculatorWebFilterTests {
 	}
 
 	private void assertWeightCalculation(WeightCalculatorWebFilter filter, String group, int item, int weight,
-			List<Double> normalized, Double... middleRanges) {
+										 List<Double> normalized, Double... middleRanges) {
 		String routeId = route(item);
 
 		filter.addWeightConfig(new WeightConfig(group, routeId, weight));

@@ -34,7 +34,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 /**
  * This test just avoid class cast exception with YAML or Properties parsing.
- *
+ * <p>
  * {@link NettyRoutingFilter#getHttpClient(Route, ServerWebExchange)}
  * {@link NettyRoutingFilter#getResponseTimeout(Route)}
  *

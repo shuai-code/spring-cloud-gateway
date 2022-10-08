@@ -24,6 +24,9 @@ import org.springframework.core.convert.converter.Converter;
 
 public class StringToZonedDateTimeConverter implements Converter<String, ZonedDateTime> {
 
+	/**
+	 * 接收一个毫秒时间戳, 转成ZonedDateTime格式, 时区是0时区
+	 */
 	@Override
 	public ZonedDateTime convert(String source) {
 		ZonedDateTime dateTime;
@@ -31,8 +34,7 @@ public class StringToZonedDateTimeConverter implements Converter<String, ZonedDa
 			long epoch = Long.parseLong(source);
 
 			dateTime = Instant.ofEpochMilli(epoch).atOffset(ZoneOffset.ofTotalSeconds(0)).toZonedDateTime();
-		}
-		catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			// try ZonedDateTime instead
 			dateTime = ZonedDateTime.parse(source);
 		}

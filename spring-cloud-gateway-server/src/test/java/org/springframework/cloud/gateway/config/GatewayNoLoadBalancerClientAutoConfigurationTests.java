@@ -36,7 +36,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions({ "spring-cloud-loadbalancer-*.jar" })
+@ClassPathExclusions({"spring-cloud-loadbalancer-*.jar"})
 public class GatewayNoLoadBalancerClientAutoConfigurationTests {
 
 	private static int port;

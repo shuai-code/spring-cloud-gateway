@@ -83,13 +83,13 @@ public class ModifyResponseBodyGatewayFilterFactoryTests extends BaseWebClientTe
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("modify_response_java_test",
-					r -> r.path("/").and().host("www.modifyresponsebodyjava.org").filters(f -> f.prefixPath("/httpbin")
-							.modifyResponseBody(String.class, Map.class, (webExchange, originalResponse) -> {
-								Map<String, Object> modifiedResponse = new HashMap<>();
-								modifiedResponse.put("value", originalResponse);
-								modifiedResponse.put("length", originalResponse.length());
-								return Mono.just(modifiedResponse);
-							})).uri(uri))
+							r -> r.path("/").and().host("www.modifyresponsebodyjava.org").filters(f -> f.prefixPath("/httpbin")
+									.modifyResponseBody(String.class, Map.class, (webExchange, originalResponse) -> {
+										Map<String, Object> modifiedResponse = new HashMap<>();
+										modifiedResponse.put("value", originalResponse);
+										modifiedResponse.put("length", originalResponse.length());
+										return Mono.just(modifiedResponse);
+									})).uri(uri))
 					.route("modify_response_java_test_to_large",
 							r -> r.path("/").and().host("www.modifyresponsebodyjavatoolarge.org")
 									.filters(f -> f.prefixPath("/httpbin").modifyResponseBody(String.class,

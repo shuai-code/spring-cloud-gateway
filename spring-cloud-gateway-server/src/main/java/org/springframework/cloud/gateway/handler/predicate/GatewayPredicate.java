@@ -49,8 +49,7 @@ public interface GatewayPredicate extends Predicate<ServerWebExchange>, HasConfi
 
 		if (other instanceof GatewayPredicate) {
 			right = (GatewayPredicate) other;
-		}
-		else {
+		} else {
 			right = new GatewayPredicateWrapper(other);
 		}
 		return right;

@@ -29,7 +29,7 @@ public interface HttpHeadersFilter {
 	}
 
 	static HttpHeaders filter(List<HttpHeadersFilter> filters, HttpHeaders input, ServerWebExchange exchange,
-			Type type) {
+							  Type type) {
 		if (filters != null) {
 			HttpHeaders filtered = input;
 			for (int i = 0; i < filters.size(); i++) {
@@ -46,7 +46,8 @@ public interface HttpHeadersFilter {
 
 	/**
 	 * Filters a set of Http Headers.
-	 * @param input Http Headers
+	 *
+	 * @param input    Http Headers
 	 * @param exchange a {@link ServerWebExchange} that should be filtered
 	 * @return filtered Http Headers
 	 */

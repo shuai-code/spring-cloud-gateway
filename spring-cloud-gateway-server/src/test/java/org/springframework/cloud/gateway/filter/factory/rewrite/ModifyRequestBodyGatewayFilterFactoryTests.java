@@ -80,10 +80,10 @@ public class ModifyRequestBodyGatewayFilterFactoryTests extends BaseWebClientTes
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("test_modify_request_body",
-					r -> r.order(-1).host("**.modifyrequestbody.org").filters(f -> f.modifyRequestBody(String.class,
-							String.class, MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, aVoid) -> {
-								return Mono.just("modifyrequest");
-							})).uri(uri))
+							r -> r.order(-1).host("**.modifyrequestbody.org").filters(f -> f.modifyRequestBody(String.class,
+									String.class, MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, aVoid) -> {
+										return Mono.just("modifyrequest");
+									})).uri(uri))
 					.route("test_modify_request_body_empty",
 							r -> r.order(-1).host("**.modifyrequestbodyempty.org")
 									.filters(f -> f.modifyRequestBody(String.class, String.class,

@@ -52,8 +52,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 /**
  * @author Spencer Gibb
  */
-@SpringBootTest(classes = { GatewaySampleApplicationTests.TestConfig.class }, webEnvironment = RANDOM_PORT,
-		properties = { "management.endpoint.gateway.enabled=true", "management.server.port=${test.port}" })
+@SpringBootTest(classes = {GatewaySampleApplicationTests.TestConfig.class}, webEnvironment = RANDOM_PORT,
+		properties = {"management.endpoint.gateway.enabled=true", "management.server.port=${test.port}"})
 public class GatewaySampleApplicationTests {
 
 	protected static int managementPort;
@@ -184,8 +184,7 @@ public class GatewaySampleApplicationTests {
 						JsonNode findValue = actualObj.findValue("name");
 						assertThat(findValue.asText()).as("Expected to find metric with name gateway.requests")
 								.isEqualTo(metricName);
-					}
-					catch (IOException e) {
+					} catch (IOException e) {
 						throw new IllegalStateException(e);
 					}
 				});

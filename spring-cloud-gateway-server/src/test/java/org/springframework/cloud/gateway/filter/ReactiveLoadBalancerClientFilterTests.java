@@ -272,8 +272,7 @@ class ReactiveLoadBalancerClientFilterTests {
 		when(chain.filter(exchange)).thenReturn(Mono.empty());
 		try {
 			filter.filter(exchange, chain).block();
-		}
-		catch (NotFoundException exception) {
+		} catch (NotFoundException exception) {
 			assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -303,7 +302,7 @@ class ReactiveLoadBalancerClientFilterTests {
 		verifyNoMoreInteractions(chain);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings({"rawtypes"})
 	@Test
 	void shouldPassRequestToLoadBalancer() {
 		String hint = "test";
@@ -330,7 +329,7 @@ class ReactiveLoadBalancerClientFilterTests {
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	void loadBalancerLifecycleCallbacksExecutedForSuccess() {
 		when(clientFactory.getProperties(any())).thenReturn(loadBalancerProperties);
@@ -347,10 +346,10 @@ class ReactiveLoadBalancerClientFilterTests {
 				.equals(completionContext.status())
 				&& completionContext.getLoadBalancerResponse().getServer().equals(serviceInstance)
 				&& HttpMethod.GET.equals(
-						((RequestDataContext) completionContext.getLoadBalancerRequest().getContext()).method())));
+				((RequestDataContext) completionContext.getLoadBalancerRequest().getContext()).method())));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	void loadBalancerLifecycleCallbacksExecutedForDiscard() {
 		when(clientFactory.getProperties(any())).thenReturn(loadBalancerProperties);
@@ -364,10 +363,10 @@ class ReactiveLoadBalancerClientFilterTests {
 		verify(lifecycleProcessor).onComplete(argThat(completionContext -> CompletionContext.Status.DISCARD
 				.equals(completionContext.status())
 				&& HttpMethod.GET.equals(
-						((RequestDataContext) completionContext.getLoadBalancerRequest().getContext()).method())));
+				((RequestDataContext) completionContext.getLoadBalancerRequest().getContext()).method())));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	void loadBalancerLifecycleCallbacksExecutedForFailed() {
 		when(clientFactory.getProperties(any())).thenReturn(loadBalancerProperties);
@@ -383,12 +382,12 @@ class ReactiveLoadBalancerClientFilterTests {
 		verify(lifecycleProcessor).onComplete(argThat(completionContext -> CompletionContext.Status.FAILED
 				.equals(completionContext.status())
 				&& HttpMethod.GET.equals(
-						((RequestDataContext) completionContext.getLoadBalancerRequest().getContext()).method())));
+				((RequestDataContext) completionContext.getLoadBalancerRequest().getContext()).method())));
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	private ServerWebExchange mockExchange(ServiceInstance serviceInstance, LoadBalancerLifecycle lifecycleProcessor,
-			boolean shouldThrowException) {
+										   boolean shouldThrowException) {
 		Response response;
 		when(lifecycleProcessor.supports(any(Class.class), any(Class.class), any(Class.class))).thenReturn(true);
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost/get?a=b").build();
@@ -396,8 +395,7 @@ class ReactiveLoadBalancerClientFilterTests {
 		ServerWebExchange serverWebExchange = MockServerWebExchange.from(request);
 		if (serviceInstance == null) {
 			response = new EmptyResponse();
-		}
-		else {
+		} else {
 			response = new DefaultResponse(serviceInstance);
 		}
 		serverWebExchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, lbUri);
@@ -411,8 +409,7 @@ class ReactiveLoadBalancerClientFilterTests {
 		when(clientFactory.getInstances("service1", LoadBalancerLifecycle.class)).thenReturn(lifecycleProcessors);
 		if (shouldThrowException) {
 			when(chain.filter(any())).thenReturn(Mono.error(new UnsupportedOperationException()));
-		}
-		else {
+		} else {
 			when(chain.filter(any())).thenReturn(Mono.empty());
 		}
 		return serverWebExchange;

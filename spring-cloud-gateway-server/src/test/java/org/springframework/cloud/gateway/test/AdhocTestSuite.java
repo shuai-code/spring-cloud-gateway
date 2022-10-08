@@ -37,7 +37,7 @@ import static org.junit.Assume.assumeThat;
  * @author Spencer Gibb
  */
 @RunWith(Suite.class)
-@SuiteClasses({ org.springframework.cloud.gateway.handler.RoutePredicateHandlerMappingIntegrationTests.class,
+@SuiteClasses({org.springframework.cloud.gateway.handler.RoutePredicateHandlerMappingIntegrationTests.class,
 		org.springframework.cloud.gateway.handler.predicate.AfterRoutePredicateFactoryTests.class,
 		org.springframework.cloud.gateway.handler.predicate.CloudFoundryRouteServiceRoutePredicateFactoryIntegrationTests.class,
 		org.springframework.cloud.gateway.handler.predicate.HostRoutePredicateFactoryTests.class,
@@ -123,7 +123,7 @@ import static org.junit.Assume.assumeThat;
 		org.springframework.cloud.gateway.test.WebfluxNotIncludedTests.class,
 		org.springframework.cloud.gateway.test.HttpStatusTests.class,
 		org.springframework.cloud.gateway.test.GatewayIntegrationTests.class,
-		org.springframework.cloud.gateway.test.sse.SseIntegrationTests.class })
+		org.springframework.cloud.gateway.test.sse.SseIntegrationTests.class})
 public class AdhocTestSuite {
 
 	@ClassRule

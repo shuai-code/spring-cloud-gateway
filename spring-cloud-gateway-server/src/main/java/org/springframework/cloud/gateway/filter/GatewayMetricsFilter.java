@@ -46,13 +46,12 @@ public class GatewayMetricsFilter implements GlobalFilter, Ordered {
 	private final String metricsPrefix;
 
 	public GatewayMetricsFilter(MeterRegistry meterRegistry, List<GatewayTagsProvider> tagsProviders,
-			String metricsPrefix) {
+								String metricsPrefix) {
 		this.meterRegistry = meterRegistry;
 		this.compositeTagsProvider = tagsProviders.stream().reduce(exchange -> Tags.empty(), GatewayTagsProvider::and);
 		if (metricsPrefix.endsWith(".")) {
 			this.metricsPrefix = metricsPrefix.substring(0, metricsPrefix.length() - 1);
-		}
-		else {
+		} else {
 			this.metricsPrefix = metricsPrefix;
 		}
 	}
@@ -81,8 +80,7 @@ public class GatewayMetricsFilter implements GlobalFilter, Ordered {
 		ServerHttpResponse response = exchange.getResponse();
 		if (response.isCommitted()) {
 			endTimerInner(exchange, sample);
-		}
-		else {
+		} else {
 			response.beforeCommit(() -> {
 				endTimerInner(exchange, sample);
 				return Mono.empty();

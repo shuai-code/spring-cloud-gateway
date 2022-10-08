@@ -55,15 +55,13 @@ public class HttpClientSslConfigurer extends AbstractSslConfigurer<HttpClient, H
 			X509Certificate[] trustedX509Certificates = getTrustedX509CertificatesForTrustManager();
 			if (trustedX509Certificates.length > 0) {
 				setTrustManager(sslContextBuilder, trustedX509Certificates);
-			}
-			else if (ssl.isUseInsecureTrustManager()) {
+			} else if (ssl.isUseInsecureTrustManager()) {
 				setTrustManager(sslContextBuilder, InsecureTrustManagerFactory.INSTANCE);
 			}
 
 			try {
 				sslContextBuilder.keyManager(getKeyManagerFactory());
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				logger.error(e);
 			}
 		});

@@ -49,8 +49,7 @@ public class FallbackHeadersGatewayFilterFactory
 			ServerWebExchange filteredExchange;
 			if (exception == null) {
 				filteredExchange = exchange;
-			}
-			else {
+			} else {
 				filteredExchange = addFallbackHeaders(config, exchange, exception);
 			}
 			return chain.filter(filteredExchange);
@@ -58,7 +57,7 @@ public class FallbackHeadersGatewayFilterFactory
 	}
 
 	private ServerWebExchange addFallbackHeaders(Config config, ServerWebExchange exchange,
-			Throwable executionException) {
+												 Throwable executionException) {
 		ServerHttpRequest.Builder requestBuilder = exchange.getRequest().mutate();
 		requestBuilder.header(config.executionExceptionTypeHeaderName, executionException.getClass().getName());
 		requestBuilder.header(config.executionExceptionMessageHeaderName, executionException.getMessage());

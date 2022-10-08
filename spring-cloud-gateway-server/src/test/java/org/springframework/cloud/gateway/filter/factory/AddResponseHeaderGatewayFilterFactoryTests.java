@@ -78,7 +78,7 @@ class AddResponseHeaderGatewayFilterFactoryTests extends BaseWebClientTests {
 			return builder.routes()
 					.route("add_response_header_java_test",
 							r -> r.path("/get").and().host("{sub}.addresponseheaderjava.org").filters(
-									f -> f.prefixPath("/httpbin").addResponseHeader("example", "myresponsevalue-{sub}"))
+											f -> f.prefixPath("/httpbin").addResponseHeader("example", "myresponsevalue-{sub}"))
 									.uri(uri))
 					.build();
 		}

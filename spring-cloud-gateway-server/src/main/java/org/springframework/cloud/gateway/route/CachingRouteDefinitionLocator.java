@@ -56,6 +56,7 @@ public class CachingRouteDefinitionLocator implements RouteDefinitionLocator, Ap
 
 	/**
 	 * Clears the cache of routeDefinitions.
+	 *
 	 * @return routeDefinitions flux
 	 */
 	public Flux<RouteDefinition> refresh() {

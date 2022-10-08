@@ -123,8 +123,7 @@ public class ForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 			String forValue;
 			if (remoteAddress.isUnresolved()) {
 				forValue = remoteAddress.getHostName();
-			}
-			else {
+			} else {
 				InetAddress address = remoteAddress.getAddress();
 				forValue = remoteAddress.getAddress().getHostAddress();
 				if (address instanceof Inet6Address) {

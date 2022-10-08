@@ -51,8 +51,7 @@ public class GatewayHttpTagsProvider implements GatewayTagsProvider {
 					status = resolved.name();
 				}
 			}
-		}
-		else {
+		} else {
 			HttpStatusCode statusCode = exchange.getResponse().getStatusCode();
 			if (statusCode != null) {
 				httpStatusCodeStr = String.valueOf(statusCode.value());

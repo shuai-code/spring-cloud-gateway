@@ -60,18 +60,20 @@ class RouteDslTests {
         }
 
         StepVerifier
-                .create(routeLocator.routes)
-                .expectNextMatches({
-                    it.id == "test" && it.filters.size == 1 && it.uri == URI.create("http://httpbin.org:80")
-                })
-                .expectNextMatches({
-                    it.id == "test2" && it.filters.size == 2 && it.uri == URI.create("https://httpbin.org:443")
-                })
-                .expectComplete()
-                .verify()
+            .create(routeLocator.routes)
+            .expectNextMatches({
+                it.id == "test" && it.filters.size == 1 && it.uri == URI.create("http://httpbin.org:80")
+            })
+            .expectNextMatches({
+                it.id == "test2" && it.filters.size == 2 && it.uri == URI.create("https://httpbin.org:443")
+            })
+            .expectComplete()
+            .verify()
 
-        val sampleExchange: ServerWebExchange = MockServerWebExchange.from(MockServerHttpRequest.get("/image/webp")
-                .header("Host", "test.abc.org").build())
+        val sampleExchange: ServerWebExchange = MockServerWebExchange.from(
+            MockServerHttpRequest.get("/image/webp")
+                .header("Host", "test.abc.org").build()
+        )
 
         val filteredRoutes = routeLocator.routes.filter({
             sampleExchange.attributes.put(ServerWebExchangeUtils.GATEWAY_PREDICATE_ROUTE_ATTR, it.id)
@@ -79,11 +81,11 @@ class RouteDslTests {
         })
 
         StepVerifier.create(filteredRoutes)
-                .expectNextMatches({
-                    it.id == "test2" && it.filters.size == 2 && it.uri == URI.create("https://httpbin.org:443")
-                })
-                .expectComplete()
-                .verify()
+            .expectNextMatches({
+                it.id == "test2" && it.filters.size == 2 && it.uri == URI.create("https://httpbin.org:443")
+            })
+            .expectComplete()
+            .verify()
     }
 
     @Test
@@ -99,26 +101,34 @@ class RouteDslTests {
         }
 
         StepVerifier.create(routerLocator.routes)
-                .expectNextMatches({
-                    it.id == "test1" &&
-                            it.uri == URI.create("http://httpbin.org:80") &&
-                            it.order == 10 &&
-                            it.predicate.apply(MockServerWebExchange
-                                    .from(MockServerHttpRequest
-                                            .get("/someuri").header("Host", "test.abc.org")))
-                                    .toMono().block()
-                })
-                .expectNextMatches({
-                    it.id == "test2" &&
-                            it.uri == URI.create("http://override-url:80") &&
-                            it.order == 10 &&
-                            it.predicate.apply(MockServerWebExchange
-                                    .from(MockServerHttpRequest
-                                            .get("/someuri").header("Host", "test.abc.org")))
-                                    .toMono().block()
-                })
-                .expectComplete()
-                .verify()
+            .expectNextMatches({
+                it.id == "test1" &&
+                        it.uri == URI.create("http://httpbin.org:80") &&
+                        it.order == 10 &&
+                        it.predicate.apply(
+                            MockServerWebExchange
+                                .from(
+                                    MockServerHttpRequest
+                                        .get("/someuri").header("Host", "test.abc.org")
+                                )
+                        )
+                            .toMono().block()
+            })
+            .expectNextMatches({
+                it.id == "test2" &&
+                        it.uri == URI.create("http://override-url:80") &&
+                        it.order == 10 &&
+                        it.predicate.apply(
+                            MockServerWebExchange
+                                .from(
+                                    MockServerHttpRequest
+                                        .get("/someuri").header("Host", "test.abc.org")
+                                )
+                        )
+                            .toMono().block()
+            })
+            .expectComplete()
+            .verify()
     }
 }
 

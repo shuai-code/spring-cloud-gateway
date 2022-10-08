@@ -86,7 +86,7 @@ public class GatewayPathTagsProviderTests {
 		assertThat(tags.stream().count()).isEqualTo(1);
 		assertThat(
 				tags.stream().anyMatch(tag -> "path".equals(tag.getKey()) && tag.getValue().equals(pathList2.get(0))))
-						.isEqualTo(true);
+				.isEqualTo(true);
 	}
 
 	@Test

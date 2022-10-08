@@ -62,7 +62,7 @@ public class ModifyResponseBodyGatewayFilterFactory
 	private final List<HttpMessageReader<?>> messageReaders;
 
 	public ModifyResponseBodyGatewayFilterFactory(List<HttpMessageReader<?>> messageReaders,
-			Set<MessageBodyDecoder> messageBodyDecoders, Set<MessageBodyEncoder> messageBodyEncoders) {
+												  Set<MessageBodyDecoder> messageBodyDecoders, Set<MessageBodyEncoder> messageBodyEncoders) {
 		super(Config.class);
 		this.messageReaders = messageReaders;
 		this.messageBodyDecoders = messageBodyDecoders.stream()
@@ -147,7 +147,7 @@ public class ModifyResponseBodyGatewayFilterFactory
 		}
 
 		public <T, R> Config setRewriteFunction(Class<T> inClass, Class<R> outClass,
-				RewriteFunction<T, R> rewriteFunction) {
+												RewriteFunction<T, R> rewriteFunction) {
 			setInClass(inClass);
 			setOutClass(outClass);
 			setRewriteFunction(rewriteFunction);
@@ -272,7 +272,7 @@ public class ModifyResponseBodyGatewayFilterFactory
 		}
 
 		private Mono<DataBuffer> writeBody(ServerHttpResponse httpResponse, CachedBodyOutputMessage message,
-				Class<?> outClass) {
+										   Class<?> outClass) {
 			Mono<DataBuffer> response = DataBufferUtils.join(message.getBody());
 			if (byte[].class.isAssignableFrom(outClass)) {
 				return response;

@@ -124,8 +124,7 @@ public abstract class AbstractHttpServer implements HttpServer {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Server started on port " + getPort() + "(" + millis + " millis).");
 					}
-				}
-				catch (Throwable ex) {
+				} catch (Throwable ex) {
 					throw new IllegalStateException(ex);
 				}
 			}
@@ -147,11 +146,9 @@ public abstract class AbstractHttpServer implements HttpServer {
 					stopWatch.start();
 					stopInternal();
 					logger.debug("Server stopped (" + stopWatch.getTotalTimeMillis() + " millis).");
-				}
-				catch (Throwable ex) {
+				} catch (Throwable ex) {
 					throw new IllegalStateException(ex);
-				}
-				finally {
+				} finally {
 					reset();
 				}
 			}

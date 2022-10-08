@@ -94,8 +94,7 @@ public class RedirectToGatewayFilterFactory
 				String status;
 				if (httpStatus.getHttpStatus() != null) {
 					status = String.valueOf(httpStatus.getHttpStatus().value());
-				}
-				else {
+				} else {
 					status = httpStatus.getStatus().toString();
 				}
 				return filterToStringCreator(RedirectToGatewayFilterFactory.this).append(status, uri).toString();

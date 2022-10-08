@@ -76,8 +76,7 @@ public class AddRequestParameterGatewayFilterFactoryTests extends BaseWebClientT
 		String query;
 		if (name != null) {
 			query = "?" + name + "=" + value;
-		}
-		else {
+		} else {
 			query = "";
 		}
 		URI uri = UriComponentsBuilder.fromUriString(this.baseUri + "/get" + query).build(true).toUri();
@@ -89,12 +88,10 @@ public class AddRequestParameterGatewayFilterFactoryTests extends BaseWebClientT
 				if (checkForEncodedValue) {
 					try {
 						assertThat(args).containsEntry(name, URLDecoder.decode(value, "UTF-8"));
-					}
-					catch (UnsupportedEncodingException e) {
+					} catch (UnsupportedEncodingException e) {
 						throw new RuntimeException(e);
 					}
-				}
-				else {
+				} else {
 					assertThat(args).containsEntry(name, value);
 				}
 			}
@@ -119,9 +116,9 @@ public class AddRequestParameterGatewayFilterFactoryTests extends BaseWebClientT
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("add_request_param_java_test",
-					r -> r.path("/get").and().host("{sub}.addreqparamjava.org")
-							.filters(f -> f.prefixPath("/httpbin").addRequestParameter("example", "ValueB-{sub}"))
-							.uri(uri))
+							r -> r.path("/get").and().host("{sub}.addreqparamjava.org")
+									.filters(f -> f.prefixPath("/httpbin").addRequestParameter("example", "ValueB-{sub}"))
+									.uri(uri))
 					.build();
 		}
 

@@ -73,6 +73,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate to check if a request was made after a specific {@link ZonedDateTime}.
+	 *
 	 * @param datetime requests would only be routed after this {@link ZonedDateTime}
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -82,6 +83,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate to check if a request was made before a specific {@link ZonedDateTime}.
+	 *
 	 * @param datetime requests will only be routed before this {@link ZonedDateTime}
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -91,6 +93,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate to check if a request was made between two {@link ZonedDateTime}s.
+	 *
 	 * @param datetime1 the request must have been made after this {@link ZonedDateTime}
 	 * @param datetime2 the request must be made before this {@link ZonedDateTime}
 	 * @return a {@link BooleanSpec} to be used to add logical operators
@@ -102,9 +105,10 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if a cookie matches a given regular expression.
-	 * @param name the name of the cookie
+	 *
+	 * @param name  the name of the cookie
 	 * @param regex the value of the cookies will be evaluated against this regular
-	 * expression
+	 *              expression
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec cookie(String name, String regex) {
@@ -114,6 +118,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if a given header is present on the request.
+	 *
 	 * @param header the header name to check
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -124,8 +129,9 @@ public class PredicateSpec extends UriSpec {
 	/**
 	 * A predicate that checks if a given headers has a value which matches a regular
 	 * expression.
+	 *
 	 * @param header the header name to check
-	 * @param regex the regular expression to check against
+	 * @param regex  the regular expression to check against
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec header(String header, String regex) {
@@ -135,8 +141,9 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if the {@code host} header matches a given pattern.
+	 *
 	 * @param pattern the pattern to check against. The pattern is an Ant style pattern
-	 * with {@code .} as a separator
+	 *                with {@code .} as a separator
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec host(String... pattern) {
@@ -146,6 +153,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if the HTTP method matches.
+	 *
 	 * @param methods the name of the HTTP methods
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -158,6 +166,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if the HTTP method matches.
+	 *
 	 * @param methods the HTTP methods
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -169,8 +178,9 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if the path of the request matches the given pattern.
+	 *
 	 * @param patterns the pattern to check the path against. The pattern is a
-	 * {@link org.springframework.util.PathMatcher} pattern
+	 *                 {@link org.springframework.util.PathMatcher} pattern
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec path(String... patterns) {
@@ -180,10 +190,11 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if the path of the request matches the given pattern.
-	 * @param patterns the pattern to check the path against. The pattern is a
-	 * {@link org.springframework.util.PathMatcher} pattern
+	 *
+	 * @param patterns           the pattern to check the path against. The pattern is a
+	 *                           {@link org.springframework.util.PathMatcher} pattern
 	 * @param matchTrailingSlash set to false if you do not want this path to match when
-	 * there is a trailing <code>/</code>
+	 *                           there is a trailing <code>/</code>
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec path(boolean matchTrailingSlash, String... patterns) {
@@ -194,9 +205,10 @@ public class PredicateSpec extends UriSpec {
 	/**
 	 * This predicate is BETA and may be subject to change in a future release. A
 	 * predicate that checks the contents of the request body
-	 * @param inClass the class to parse the body to
+	 *
+	 * @param inClass   the class to parse the body to
 	 * @param predicate a predicate to check the contents of the body
-	 * @param <T> the type the body is parsed to
+	 * @param <T>       the type the body is parsed to
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public <T> BooleanSpec readBody(Class<T> inClass, Predicate<T> predicate) {
@@ -206,6 +218,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if a query parameter matches a regular expression.
+	 *
 	 * @param param the query parameter name
 	 * @param regex the regular expression to evaluate the query parameter value against
 	 * @return a {@link BooleanSpec} to be used to add logical operators
@@ -217,6 +230,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate that checks if a given query parameter is present in the request URL.
+	 *
 	 * @param param the query parameter name
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -232,8 +246,9 @@ public class PredicateSpec extends UriSpec {
 	 * {@link PredicateSpec#remoteAddr(RemoteAddressResolver, String...)} to customize the
 	 * resolver. You can customize the way that the remote address is resolved by setting
 	 * a custom RemoteAddressResolver.
+	 *
 	 * @param addrs the remote address to verify. Should use CIDR-notation (IPv4 or IPv6)
-	 * strings.
+	 *              strings.
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec remoteAddr(String... addrs) {
@@ -248,10 +263,11 @@ public class PredicateSpec extends UriSpec {
 	 * See
 	 * {@link org.springframework.cloud.gateway.support.ipresolver.XForwardedRemoteAddressResolver}
 	 * for more information.
+	 *
 	 * @param resolver the {@link RemoteAddressResolver} to use to resolve the remote IP
-	 * address against
-	 * @param addrs the remote address to verify. Should use CIDR-notation (IPv4 or IPv6)
-	 * strings.
+	 *                 address against
+	 * @param addrs    the remote address to verify. Should use CIDR-notation (IPv4 or IPv6)
+	 *                 strings.
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec remoteAddr(RemoteAddressResolver resolver, String... addrs) {
@@ -269,8 +285,9 @@ public class PredicateSpec extends UriSpec {
 	 * layer. See
 	 * {@link org.springframework.cloud.gateway.support.ipresolver.XForwardedRemoteAddressResolver}
 	 * for more information.
+	 *
 	 * @param addrs the remote address to verify. Should use CIDR-notation (IPv4 or IPv6)
-	 * strings.
+	 *              strings.
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec xForwardedRemoteAddr(String... addrs) {
@@ -281,7 +298,8 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate which will select a route based on its assigned weight.
-	 * @param group the group the route belongs to
+	 *
+	 * @param group  the group the route belongs to
 	 * @param weight the weight for the route
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
@@ -297,6 +315,7 @@ public class PredicateSpec extends UriSpec {
 
 	/**
 	 * A predicate which is always true.
+	 *
 	 * @return a {@link BooleanSpec} to be used to add logical operators
 	 */
 	public BooleanSpec alwaysTrue() {

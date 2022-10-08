@@ -102,8 +102,7 @@ public class WeightRoutePredicateFactory extends AbstractRoutePredicateFactory<W
 					}
 
 					return routeId.equals(chosenRoute);
-				}
-				else if (log.isTraceEnabled()) {
+				} else if (log.isTraceEnabled()) {
 					log.trace("no weights found for group: " + group + ", current route: " + routeId);
 				}
 

@@ -155,7 +155,7 @@ class GatewayIntegrationTests extends BaseWebClientTests {
 	}
 
 	@Test
-	// gh-374 no content type/empty body causes NPR in NettyRoutingFilter
+		// gh-374 no content type/empty body causes NPR in NettyRoutingFilter
 	void noContentType() {
 		testClient.get().uri("/nocontenttype").exchange().expectStatus().is2xxSuccessful();
 	}

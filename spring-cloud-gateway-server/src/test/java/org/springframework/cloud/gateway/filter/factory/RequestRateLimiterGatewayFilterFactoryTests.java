@@ -98,7 +98,7 @@ public class RequestRateLimiterGatewayFilterFactoryTests extends BaseWebClientTe
 	}
 
 	private void assertFilterFactory(KeyResolver keyResolver, String key, boolean allowed, HttpStatus expectedStatus,
-			Boolean denyEmptyKey) {
+									 Boolean denyEmptyKey) {
 
 		String tokensRemaining = allowed ? "1" : "0";
 

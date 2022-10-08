@@ -76,13 +76,12 @@ public class RedisRateLimiterConfigTests {
 	}
 
 	private void assertFilter(String key, int replenishRate, int burstCapacity, int requestedTokens,
-			boolean useDefaultConfig) {
+							  boolean useDefaultConfig) {
 		RedisRateLimiter.Config config;
 
 		if (useDefaultConfig) {
 			config = rateLimiter.getDefaultConfig();
-		}
-		else {
+		} else {
 			assertThat(rateLimiter.getConfig()).containsKey(key);
 			config = rateLimiter.getConfig().get(key);
 		}
@@ -103,11 +102,11 @@ public class RedisRateLimiterConfigTests {
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("custom_redis_rate_limiter", r -> r.path("/custom")
-					.filters(f -> f.requestRateLimiter()
-							.rateLimiter(RedisRateLimiter.class,
-									rl -> rl.setBurstCapacity(40).setReplenishRate(20).setRequestedTokens(10))
-							.and())
-					.uri("http://localhost"))
+							.filters(f -> f.requestRateLimiter()
+									.rateLimiter(RedisRateLimiter.class,
+											rl -> rl.setBurstCapacity(40).setReplenishRate(20).setRequestedTokens(10))
+									.and())
+							.uri("http://localhost"))
 					.route("alt_custom_redis_rate_limiter",
 							r -> r.path("/custom")
 									.filters(f -> f.requestRateLimiter(c -> c.setRateLimiter(myRateLimiter())))

@@ -50,13 +50,11 @@ public class GatewayToStringStyler extends DefaultToStringStyler {
 			String shortName;
 			if (instanceClass.isInstance(obj)) {
 				shortName = classNameFormatter.apply(obj.getClass());
-			}
-			else {
+			} else {
 				shortName = ClassUtils.getShortName(obj.getClass());
 			}
 			buffer.append('[').append(shortName);
-		}
-		else {
+		} else {
 			buffer.append('[');
 			styleValue(buffer, obj);
 		}

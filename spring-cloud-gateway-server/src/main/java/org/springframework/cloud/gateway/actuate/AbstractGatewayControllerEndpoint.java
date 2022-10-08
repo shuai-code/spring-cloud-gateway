@@ -73,9 +73,9 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 	protected ApplicationEventPublisher publisher;
 
 	public AbstractGatewayControllerEndpoint(RouteDefinitionLocator routeDefinitionLocator,
-			List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilters,
-			List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
-			RouteLocator routeLocator) {
+											 List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilters,
+											 List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
+											 RouteLocator routeLocator) {
 		this.routeDefinitionLocator = routeDefinitionLocator;
 		this.globalFilters = globalFilters;
 		this.GatewayFilters = gatewayFilters;
@@ -152,8 +152,7 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 				.filter(rd -> !isAvailable(rd)).map(PredicateDefinition::getName).collect(Collectors.toSet());
 		if (!unavailableFilterDefinitions.isEmpty()) {
 			handleUnavailableDefinition(FilterDefinition.class.getSimpleName(), unavailableFilterDefinitions);
-		}
-		else if (!unavailablePredicatesDefinitions.isEmpty()) {
+		} else if (!unavailablePredicatesDefinitions.isEmpty()) {
 			handleUnavailableDefinition(PredicateDefinition.class.getSimpleName(), unavailablePredicatesDefinitions);
 		}
 	}

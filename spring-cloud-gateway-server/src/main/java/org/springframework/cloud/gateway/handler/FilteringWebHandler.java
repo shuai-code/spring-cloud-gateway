@@ -53,14 +53,14 @@ public class FilteringWebHandler implements WebHandler {
 
 	/**
 	 * 初始化全局过滤器
-	 * */
+	 */
 	public FilteringWebHandler(List<GlobalFilter> globalFilters) {
 		this.globalFilters = loadFilters(globalFilters);
 	}
 
 	/**
 	 * 根据过滤器是否实现了排序分别处理
-	 * */
+	 */
 	private static List<GatewayFilter> loadFilters(List<GlobalFilter> filters) {
 		return filters.stream().map(filter -> {
 			GatewayFilterAdapter gatewayFilter = new GatewayFilterAdapter(filter);
@@ -121,8 +121,7 @@ public class FilteringWebHandler implements WebHandler {
 					GatewayFilter filter = filters.get(this.index);
 					DefaultGatewayFilterChain chain = new DefaultGatewayFilterChain(this, this.index + 1);
 					return filter.filter(exchange, chain);
-				}
-				else {
+				} else {
 					return Mono.empty(); // complete
 				}
 			});

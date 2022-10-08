@@ -26,13 +26,14 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Conditional;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 @Conditional(OnEnabledGlobalFilter.class)
 public @interface ConditionalOnEnabledGlobalFilter {
 
 	/**
 	 * The class component to check for.
+	 *
 	 * @return the class that must be enabled
 	 */
 	Class<? extends GlobalFilter> value() default OnEnabledGlobalFilter.DefaultValue.class;

@@ -59,8 +59,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
  * @author fangfeikun
  */
 @SpringBootTest(webEnvironment = RANDOM_PORT,
-		properties = { "spring.cloud.gateway.httpclient.ssl.handshake-timeout=1ms",
-				"spring.main.allow-bean-definition-overriding=true" })
+		properties = {"spring.cloud.gateway.httpclient.ssl.handshake-timeout=1ms",
+				"spring.main.allow-bean-definition-overriding=true"})
 @DirtiesContext
 @ActiveProfiles("single-cert-ssl")
 class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClientTests {
@@ -75,8 +75,7 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 					.build();
 			HttpClient httpClient = HttpClient.create().secure(ssl -> ssl.sslContext(sslContext));
 			setup(new ReactorClientHttpConnector(httpClient), "https://localhost:" + port);
-		}
-		catch (SSLException e) {
+		} catch (SSLException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -157,7 +156,7 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 			return new ModifyRequestBodyGatewayFilterFactory(codecConfigurer.getReaders()) {
 				@Override
 				protected Mono<Void> release(ServerWebExchange exchange, CachedBodyOutputMessage outputMessage,
-						Throwable throwable) {
+											 Throwable throwable) {
 					if (outputMessage.isCached()) {
 						count.incrementAndGet();
 					}

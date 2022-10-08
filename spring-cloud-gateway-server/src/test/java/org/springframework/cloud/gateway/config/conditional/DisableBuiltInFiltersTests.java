@@ -59,8 +59,8 @@ public class DisableBuiltInFiltersTests {
 
 	@RunWith(SpringRunner.class)
 	@SpringBootTest(classes = Config.class,
-			properties = { "spring.cloud.gateway.filter.add-request-header.enabled=false",
-					"spring.cloud.gateway.filter.map-request-header.enabled=false" })
+			properties = {"spring.cloud.gateway.filter.add-request-header.enabled=false",
+					"spring.cloud.gateway.filter.map-request-header.enabled=false"})
 	@ActiveProfiles("disable-components")
 	public static class DisableSpecificsFiltersByProperty {
 
@@ -78,7 +78,7 @@ public class DisableBuiltInFiltersTests {
 
 	@RunWith(SpringRunner.class)
 	@SpringBootTest(classes = Config.class,
-			properties = { "spring.cloud.gateway.filter.add-request-header.enabled=false",
+			properties = {"spring.cloud.gateway.filter.add-request-header.enabled=false",
 					"spring.cloud.gateway.filter.map-request-header.enabled=false",
 					"spring.cloud.gateway.filter.add-request-parameter.enabled=false",
 					"spring.cloud.gateway.filter.add-response-header.enabled=false",
@@ -112,7 +112,7 @@ public class DisableBuiltInFiltersTests {
 					"spring.cloud.gateway.filter.circuit-breaker.enabled=false",
 					"spring.cloud.gateway.filter.token-relay.enabled=false",
 					"spring.cloud.gateway.filter.cache-request-body.enabled=false",
-					"spring.cloud.gateway.filter.fallback-headers.enabled=false" })
+					"spring.cloud.gateway.filter.fallback-headers.enabled=false"})
 	@ActiveProfiles("disable-components")
 	public static class DisableAllFiltersByProperty {
 

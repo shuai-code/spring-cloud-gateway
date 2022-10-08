@@ -92,8 +92,7 @@ public class JsonToGrpcApplicationTests {
 		SSLContext sslContext;
 		try {
 			sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-		}
-		catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
+		} catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
 			throw new RuntimeException(e);
 		}
 		SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext,

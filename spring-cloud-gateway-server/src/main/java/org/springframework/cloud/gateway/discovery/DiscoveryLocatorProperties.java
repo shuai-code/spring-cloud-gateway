@@ -27,7 +27,9 @@ import org.springframework.core.style.ToStringCreator;
 @ConfigurationProperties("spring.cloud.gateway.discovery.locator")
 public class DiscoveryLocatorProperties {
 
-	/** Flag that enables DiscoveryClient gateway integration. */
+	/**
+	 * Flag that enables DiscoveryClient gateway integration.
+	 */
 	private boolean enabled = false;
 
 	/**

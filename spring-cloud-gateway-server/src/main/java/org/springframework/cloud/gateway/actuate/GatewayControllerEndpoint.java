@@ -46,8 +46,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GatewayControllerEndpoint extends AbstractGatewayControllerEndpoint {
 
 	public GatewayControllerEndpoint(List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilters,
-			List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
-			RouteLocator routeLocator, RouteDefinitionLocator routeDefinitionLocator) {
+									 List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
+									 RouteLocator routeLocator, RouteDefinitionLocator routeDefinitionLocator) {
 		super(routeDefinitionLocator, globalFilters, gatewayFilters, routePredicates, routeDefinitionWriter,
 				routeLocator);
 	}

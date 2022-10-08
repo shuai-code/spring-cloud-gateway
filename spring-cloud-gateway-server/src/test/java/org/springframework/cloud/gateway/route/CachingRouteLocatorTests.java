@@ -78,14 +78,12 @@ public class CachingRouteLocatorTests {
 				if (i == 0) {
 					i++;
 					return Flux.just(route1);
-				}
-				else if (i == 1) {
+				} else if (i == 1) {
 					i++;
 					return Flux.just(route2).map(route -> {
 						throw new RuntimeException("in chain.");
 					});
-				}
-				else if (i == 2) {
+				} else if (i == 2) {
 					i++;
 					throw new RuntimeException("call getRoutes error.");
 				}

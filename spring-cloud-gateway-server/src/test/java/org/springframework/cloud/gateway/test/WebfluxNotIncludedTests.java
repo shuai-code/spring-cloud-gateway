@@ -26,7 +26,7 @@ import org.springframework.cloud.test.ClassPathExclusions;
 import org.springframework.cloud.test.ModifiedClassPathRunner;
 
 @RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions({ "spring-webflux-*.jar" })
+@ClassPathExclusions({"spring-webflux-*.jar"})
 public class WebfluxNotIncludedTests {
 
 	@Test

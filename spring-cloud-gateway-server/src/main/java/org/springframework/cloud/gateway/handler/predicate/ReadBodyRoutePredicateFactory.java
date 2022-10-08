@@ -78,16 +78,14 @@ public class ReadBodyRoutePredicateFactory extends AbstractRoutePredicateFactory
 						boolean test = config.predicate.test(cachedBody);
 						exchange.getAttributes().put(TEST_ATTRIBUTE, test);
 						return Mono.just(test);
-					}
-					catch (ClassCastException e) {
+					} catch (ClassCastException e) {
 						if (log.isDebugEnabled()) {
 							log.debug("Predicate test failed because class in predicate "
 									+ "does not match the cached body object", e);
 						}
 					}
 					return Mono.just(false);
-				}
-				else {
+				} else {
 					return ServerWebExchangeUtils.cacheRequestBodyAndRequest(exchange,
 							(serverHttpRequest) -> ServerRequest
 									.create(exchange.mutate().request(serverHttpRequest).build(), messageReaders)

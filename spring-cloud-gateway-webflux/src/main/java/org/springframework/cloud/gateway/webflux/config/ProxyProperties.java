@@ -31,7 +31,6 @@ import org.springframework.http.HttpHeaders;
  *
  * @author Dave Syer
  * @author Tim Ysewyn
- *
  */
 @ConfigurationProperties("spring.cloud.gateway.proxy")
 public class ProxyProperties {

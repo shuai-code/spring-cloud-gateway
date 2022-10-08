@@ -62,7 +62,7 @@ public class RedisRateLimiterDefaultFilterConfigTests {
 	}
 
 	private void assertConfigAndRoute(String key, int replenishRate, int burstCapacity, int requestedTokens,
-			RedisRateLimiter.Config config) {
+									  RedisRateLimiter.Config config) {
 		assertThat(config).isNotNull();
 		assertThat(config.getReplenishRate()).isEqualTo(replenishRate);
 		assertThat(config.getBurstCapacity()).isEqualTo(burstCapacity);

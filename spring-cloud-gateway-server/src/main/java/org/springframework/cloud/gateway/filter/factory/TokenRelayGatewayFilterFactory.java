@@ -56,7 +56,7 @@ public class TokenRelayGatewayFilterFactory extends AbstractGatewayFilterFactory
 	}
 
 	private Mono<OAuth2AuthorizedClient> authorizedClient(ServerWebExchange exchange,
-			OAuth2AuthenticationToken oauth2Authentication) {
+														  OAuth2AuthenticationToken oauth2Authentication) {
 		String clientRegistrationId = oauth2Authentication.getAuthorizedClientRegistrationId();
 		OAuth2AuthorizeRequest request = OAuth2AuthorizeRequest.withClientRegistrationId(clientRegistrationId)
 				.principal(oauth2Authentication).build();

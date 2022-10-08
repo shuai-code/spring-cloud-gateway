@@ -90,8 +90,7 @@ public class NettyWriteResponseFilter implements GlobalFilter, Ordered {
 					MediaType contentType = null;
 					try {
 						contentType = response.getHeaders().getContentType();
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						if (log.isTraceEnabled()) {
 							log.trace("invalid media type", e);
 						}

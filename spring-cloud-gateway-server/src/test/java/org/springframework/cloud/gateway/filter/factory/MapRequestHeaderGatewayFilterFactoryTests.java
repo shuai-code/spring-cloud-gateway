@@ -113,9 +113,9 @@ class MapRequestHeaderGatewayFilterFactoryTests extends BaseWebClientTests {
 		@Bean
 		RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("map_request_header_java_test",
-					r -> r.path("/headers").and().host("**.maprequestheaderjava.org")
-							.filters(f -> f.prefixPath("/httpbin").mapRequestHeader("b", "X-Request-Example-Java"))
-							.uri(uri))
+							r -> r.path("/headers").and().host("**.maprequestheaderjava.org")
+									.filters(f -> f.prefixPath("/httpbin").mapRequestHeader("b", "X-Request-Example-Java"))
+									.uri(uri))
 					.build();
 		}
 

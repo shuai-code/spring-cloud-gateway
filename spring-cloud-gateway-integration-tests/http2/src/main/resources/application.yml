@@ -14,8 +14,8 @@ server:
 spring:
   cloud:
     gateway:
-#      httpserver:
-#        wiretap: true
+      #      httpserver:
+      #        wiretap: true
       httpclient:
         wiretap: true
         ssl:

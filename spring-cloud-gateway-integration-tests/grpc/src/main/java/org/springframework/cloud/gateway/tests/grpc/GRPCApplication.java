@@ -81,8 +81,7 @@ public class GRPCApplication {
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 				try {
 					GRPCServer.this.stop();
-				}
-				catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					e.printStackTrace(System.err);
 				}
 			}));

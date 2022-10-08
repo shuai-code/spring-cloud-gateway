@@ -14,11 +14,11 @@ spring:
             maxAge: 10
             allowedOrigins: "*"
             allowedMethods:
-            - GET
+              - GET
       default-filters:
-        #empty to prevent failures in tests disabling components
+      #empty to prevent failures in tests disabling components
       routes:
-        #empty to prevent failures in tests disabling components
+      #empty to prevent failures in tests disabling components
 management:
   endpoints:
     web:

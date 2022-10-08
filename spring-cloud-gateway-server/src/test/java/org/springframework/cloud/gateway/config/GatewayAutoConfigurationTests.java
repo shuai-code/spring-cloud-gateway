@@ -312,15 +312,15 @@ public class GatewayAutoConfigurationTests {
 		@Bean
 		@Primary
 		CustomHttpClientFactory customHttpClientFactory(HttpClientProperties properties,
-				ServerProperties serverProperties, List<HttpClientCustomizer> customizers,
-				HttpClientSslConfigurer sslConfigurer) {
+														ServerProperties serverProperties, List<HttpClientCustomizer> customizers,
+														HttpClientSslConfigurer sslConfigurer) {
 			return new CustomHttpClientFactory(properties, serverProperties, sslConfigurer, customizers);
 		}
 
 		@Bean
 		@Primary
 		CustomSslConfigurer customSslContextFactory(ServerProperties serverProperties,
-				HttpClientProperties httpClientProperties) {
+													HttpClientProperties httpClientProperties) {
 			return new CustomSslConfigurer(httpClientProperties.getSsl(), serverProperties);
 		}
 
@@ -335,7 +335,7 @@ public class GatewayAutoConfigurationTests {
 		private CustomSslConfigurer customSslContextFactory;
 
 		public CustomHttpClientFactory(HttpClientProperties properties, ServerProperties serverProperties,
-				HttpClientSslConfigurer sslConfigurer, List<HttpClientCustomizer> customizers) {
+									   HttpClientSslConfigurer sslConfigurer, List<HttpClientCustomizer> customizers) {
 			super(properties, serverProperties, sslConfigurer, customizers);
 			this.customSslContextFactory = (CustomSslConfigurer) sslConfigurer;
 		}
@@ -348,7 +348,7 @@ public class GatewayAutoConfigurationTests {
 
 		@Override
 		protected ProxyProvider.Builder configureProxyProvider(HttpClientProperties.Proxy proxy,
-				ProxyProvider.TypeSpec proxySpec) {
+															   ProxyProvider.TypeSpec proxySpec) {
 			proxyProvider = super.configureProxyProvider(proxy, proxySpec);
 			return proxyProvider;
 		}
@@ -373,7 +373,7 @@ public class GatewayAutoConfigurationTests {
 
 			@Override
 			protected void configureSslContext(HttpClientProperties.Ssl ssl,
-					SslProvider.SslContextSpec sslContextSpec) {
+											   SslProvider.SslContextSpec sslContextSpec) {
 				sslConfigured = true;
 				super.configureSslContext(getSslProperties(), sslContextSpec);
 			}

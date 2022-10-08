@@ -51,8 +51,7 @@ public class SingleCertSSLTests extends BaseWebClientTests {
 					.build();
 			HttpClient httpClient = HttpClient.create().secure(ssl -> ssl.sslContext(sslContext));
 			setup(new ReactorClientHttpConnector(httpClient), "https://localhost:" + port);
-		}
-		catch (SSLException e) {
+		} catch (SSLException e) {
 			throw new RuntimeException(e);
 		}
 	}

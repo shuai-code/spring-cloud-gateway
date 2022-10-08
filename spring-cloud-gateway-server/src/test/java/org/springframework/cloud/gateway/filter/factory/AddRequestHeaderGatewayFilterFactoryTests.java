@@ -102,9 +102,9 @@ public class AddRequestHeaderGatewayFilterFactoryTests extends BaseWebClientTest
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("add_request_header_java_test",
-					r -> r.path("/headers").and().host("{sub}.addrequestheaderjava.org")
-							.filters(f -> f.prefixPath("/httpbin").addRequestHeader("X-Request-Acme", "ValueB-{sub}"))
-							.uri(uri))
+							r -> r.path("/headers").and().host("{sub}.addrequestheaderjava.org")
+									.filters(f -> f.prefixPath("/httpbin").addRequestHeader("X-Request-Acme", "ValueB-{sub}"))
+									.uri(uri))
 					.route("add_multiple_request_header_java_test",
 							r -> r.path("/multivalueheaders").and().host("{sub}.addrequestheaderjava.org")
 									.filters(f -> f.prefixPath("/httpbin")

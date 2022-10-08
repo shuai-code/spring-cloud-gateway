@@ -68,7 +68,7 @@ public class HttpBinCompatibleController {
 		return "httpbin compatible home";
 	}
 
-	@RequestMapping(path = "/headers", method = { RequestMethod.GET, RequestMethod.POST },
+	@RequestMapping(path = "/headers", method = {RequestMethod.GET, RequestMethod.POST},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> headers(ServerWebExchange exchange) {
 		Map<String, Object> result = new HashMap<>();
@@ -78,7 +78,7 @@ public class HttpBinCompatibleController {
 
 	@PatchMapping("/headers")
 	public ResponseEntity<Map<String, Object>> headersPatch(ServerWebExchange exchange,
-			@RequestBody Map<String, String> headersToAdd) {
+															@RequestBody Map<String, String> headersToAdd) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("headers", getHeaders(exchange));
 		ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(HttpStatus.OK);
@@ -87,7 +87,7 @@ public class HttpBinCompatibleController {
 		return responseEntity.body(result);
 	}
 
-	@RequestMapping(path = "/multivalueheaders", method = { RequestMethod.GET, RequestMethod.POST },
+	@RequestMapping(path = "/multivalueheaders", method = {RequestMethod.GET, RequestMethod.POST},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> multiValueHeaders(ServerWebExchange exchange) {
 		Map<String, Object> result = new HashMap<>();
@@ -166,7 +166,7 @@ public class HttpBinCompatibleController {
 		return ResponseEntity.status(status).body("Failed with " + status);
 	}
 
-	@RequestMapping(value = "/responseheaders/{status}", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/responseheaders/{status}", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Map<String, Object>> responseHeaders(@PathVariable int status, ServerWebExchange exchange) {
 		HttpHeaders httpHeaders = exchange.getRequest().getHeaders().entrySet().stream()
 				.filter(entry -> entry.getKey().startsWith("X-Test-"))

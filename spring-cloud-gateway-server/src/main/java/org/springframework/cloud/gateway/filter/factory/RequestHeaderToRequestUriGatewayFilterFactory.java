@@ -72,8 +72,7 @@ public class RequestHeaderToRequestUriGatewayFilterFactory
 		return Optional.ofNullable(requestUrl).map(url -> {
 			try {
 				return new URL(url).toURI();
-			}
-			catch (MalformedURLException | URISyntaxException e) {
+			} catch (MalformedURLException | URISyntaxException e) {
 				log.info("Request url is invalid : url={}, error={}", requestUrl, e.getMessage());
 				return null;
 			}

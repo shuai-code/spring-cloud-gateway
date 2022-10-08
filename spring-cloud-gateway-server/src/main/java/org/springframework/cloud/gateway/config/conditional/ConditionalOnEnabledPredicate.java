@@ -26,13 +26,14 @@ import org.springframework.cloud.gateway.handler.predicate.RoutePredicateFactory
 import org.springframework.context.annotation.Conditional;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 @Conditional(OnEnabledPredicate.class)
 public @interface ConditionalOnEnabledPredicate {
 
 	/**
 	 * The class components to check for.
+	 *
 	 * @return the class that must be enabled
 	 */
 	Class<? extends RoutePredicateFactory<?>> value() default OnEnabledPredicate.DefaultValue.class;

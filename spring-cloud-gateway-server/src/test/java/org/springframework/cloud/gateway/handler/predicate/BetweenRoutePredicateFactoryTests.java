@@ -140,7 +140,7 @@ public class BetweenRoutePredicateFactoryTests {
 	@Test
 	public void testPredicates() {
 		boolean result = new BetweenRoutePredicateFactory().apply(
-				c -> c.setDatetime1(ZonedDateTime.now().minusHours(2)).setDatetime2(ZonedDateTime.now().plusHours(1)))
+						c -> c.setDatetime1(ZonedDateTime.now().minusHours(2)).setDatetime2(ZonedDateTime.now().plusHours(1)))
 				.test(getExchange());
 		assertThat(result).isTrue();
 	}

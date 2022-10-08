@@ -136,8 +136,7 @@ public class CacheRequestBodyGatewayFilterFactoryTests extends BaseWebClientTest
 			String body = exchange.getAttribute(ServerWebExchangeUtils.CACHED_REQUEST_BODY_ATTR);
 			if (exceptNullBody) {
 				assertThat(body).isNull();
-			}
-			else {
+			} else {
 				assertThat(body).isEqualTo(bodyExcepted);
 			}
 			return chain.filter(exchange);

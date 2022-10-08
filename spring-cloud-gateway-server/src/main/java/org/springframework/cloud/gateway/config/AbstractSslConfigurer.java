@@ -70,14 +70,12 @@ public abstract class AbstractSslConfigurer<T, S> {
 					URL url = ResourceUtils.getURL(trustedCert);
 					Collection<? extends Certificate> certs = certificateFactory.generateCertificates(url.openStream());
 					allCerts.addAll(certs);
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					throw new RuntimeException("Could not load certificate '" + trustedCert + "'", e);
 				}
 			}
 			return allCerts.toArray(new X509Certificate[allCerts.size()]);
-		}
-		catch (CertificateException e1) {
+		} catch (CertificateException e1) {
 			throw new RuntimeException("Could not load CertificateFactory X.509", e1);
 		}
 	}
@@ -100,8 +98,7 @@ public abstract class AbstractSslConfigurer<T, S> {
 			}
 
 			return null;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 	}
@@ -116,14 +113,12 @@ public abstract class AbstractSslConfigurer<T, S> {
 				URL url = ResourceUtils.getURL(ssl.getKeyStore());
 				store.load(url.openStream(),
 						ssl.getKeyStorePassword() != null ? ssl.getKeyStorePassword().toCharArray() : null);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				throw new RuntimeException("Could not load key store ' " + ssl.getKeyStore() + "'", e);
 			}
 
 			return store;
-		}
-		catch (KeyStoreException | NoSuchProviderException e) {
+		} catch (KeyStoreException | NoSuchProviderException e) {
 			throw new RuntimeException("Could not load KeyStore for given type and provider", e);
 		}
 	}

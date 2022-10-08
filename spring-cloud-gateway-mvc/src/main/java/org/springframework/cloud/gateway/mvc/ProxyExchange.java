@@ -133,7 +133,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
  * </p>
  *
  * @author Dave Syer
- *
  */
 public class ProxyExchange<T> {
 
@@ -164,7 +163,7 @@ public class ProxyExchange<T> {
 	private Type responseType;
 
 	public ProxyExchange(RestTemplate rest, NativeWebRequest webRequest, ModelAndViewContainer mavContainer,
-			WebDataBinderFactory binderFactory, Type type) {
+						 WebDataBinderFactory binderFactory, Type type) {
 		this.responseType = type;
 		this.rest = rest;
 		this.webRequest = webRequest;
@@ -179,6 +178,7 @@ public class ProxyExchange<T> {
 	 * request downstream without changing it. If you want to transform the incoming
 	 * request you can declare it as a <code>@RequestBody</code> in your
 	 * <code>@RequestMapping</code> in the usual Spring MVC way.
+	 *
 	 * @param body the request body to send downstream
 	 * @return this for convenience
 	 */
@@ -189,7 +189,8 @@ public class ProxyExchange<T> {
 
 	/**
 	 * Sets a header for the downstream call.
-	 * @param name Header name
+	 *
+	 * @param name  Header name
 	 * @param value Header values
 	 * @return this for convenience
 	 */
@@ -201,6 +202,7 @@ public class ProxyExchange<T> {
 	/**
 	 * Additional headers, or overrides of the incoming ones, to be used in the downstream
 	 * call.
+	 *
 	 * @param headers the http headers to use in the downstream call
 	 * @return this for convenience
 	 */
@@ -212,6 +214,7 @@ public class ProxyExchange<T> {
 	/**
 	 * Sets the names of sensitive headers that are not passed downstream to the backend
 	 * service.
+	 *
 	 * @param names the names of sensitive headers
 	 * @return this for convenience
 	 */
@@ -229,6 +232,7 @@ public class ProxyExchange<T> {
 
 	/**
 	 * Sets the uri for the backend call when triggered by the HTTP methods.
+	 *
 	 * @param uri the backend uri to send the request to
 	 * @return this for convenience
 	 */
@@ -239,14 +243,14 @@ public class ProxyExchange<T> {
 
 	/**
 	 * Sets the uri for the backend call when triggered by the HTTP methods.
+	 *
 	 * @param uri the backend uri to send the request to
 	 * @return this for convenience
 	 */
 	public ProxyExchange<T> uri(String uri) {
 		try {
 			return this.uri(new URI(uri));
-		}
-		catch (URISyntaxException e) {
+		} catch (URISyntaxException e) {
 			throw new IllegalStateException("Cannot create URI", e);
 		}
 	}
@@ -270,8 +274,7 @@ public class ProxyExchange<T> {
 		try {
 			request.getRequestDispatcher(path).forward(new BodyForwardingHttpServletRequest(request, response),
 					response);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new IllegalStateException("Cannot forward request", e);
 		}
 	}
@@ -379,8 +382,7 @@ public class ProxyExchange<T> {
 			URI uri = new URI(webRequest.getNativeRequest(HttpServletRequest.class).getRequestURL().toString());
 			appendForwarded(uri);
 			appendXForwarded(uri);
-		}
-		catch (URISyntaxException e) {
+		} catch (URISyntaxException e) {
 			throw new IllegalStateException("Cannot create URI for request: "
 					+ webRequest.getNativeRequest(HttpServletRequest.class).getRequestURL());
 		}
@@ -406,8 +408,7 @@ public class ProxyExchange<T> {
 		String forwarded = headers.getFirst("forwarded");
 		if (forwarded != null) {
 			forwarded = forwarded + ",";
-		}
-		else {
+		} else {
 			forwarded = "";
 		}
 		forwarded = forwarded + forwarded(uri, webRequest.getHeader("host"));
@@ -436,6 +437,7 @@ public class ProxyExchange<T> {
 	 * Search for the request body if it was already deserialized using
 	 * <code>@RequestBody</code>. If it is not found then deserialize it in the same way
 	 * that it would have been for a <code>@RequestBody</code>.
+	 *
 	 * @return the request body
 	 */
 	private Object getRequestBody() {
@@ -448,8 +450,7 @@ public class ProxyExchange<T> {
 		MethodParameter input = new MethodParameter(ClassUtils.getMethod(BodyGrabber.class, "body", Object.class), 0);
 		try {
 			delegate.resolveArgument(input, mavContainer, webRequest, binderFactory);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new IllegalStateException("Cannot resolve body", e);
 		}
 		String name = Conventions.getVariableNameForParameter(input);
@@ -478,7 +479,6 @@ public class ProxyExchange<T> {
 	 * A servlet request wrapper that can be safely passed downstream to an internal
 	 * forward dispatch, caching its body, and making it available in converted form using
 	 * Spring message converters.
-	 *
 	 */
 	class BodyForwardingHttpServletRequest extends HttpServletRequestWrapper {
 
@@ -505,8 +505,7 @@ public class ProxyExchange<T> {
 			ServletWebRequest webRequest = new ServletWebRequest(this.request, response);
 			try {
 				delegate.handleReturnValue(body, output, mavContainer, webRequest);
-			}
-			catch (HttpMessageNotWritableException | HttpMediaTypeNotAcceptableException e) {
+			} catch (HttpMessageNotWritableException | HttpMediaTypeNotAcceptableException e) {
 				throw new IllegalStateException("Cannot convert body", e);
 			}
 			return response.getInputStream();
@@ -554,7 +553,6 @@ public class ProxyExchange<T> {
  * can be read repeatedly as necessary.
  *
  * @author Dave Syer
- *
  */
 class ServletOutputToInputConverter extends HttpServletResponseWrapper {
 

@@ -159,10 +159,10 @@ public class ForwardedHeadersFilterTests {
 
 	@Test
 	public void forwardedParsedCorrectly() {
-		String[] valid = new String[] { "for=\"_gazonk\"", "for=192.0.2.60;proto=http;by=203.0.113.43",
+		String[] valid = new String[]{"for=\"_gazonk\"", "for=192.0.2.60;proto=http;by=203.0.113.43",
 				"for=192.0.2.43, for=198.51.100.17", "for=12.34.56.78;host=example.com;proto=https, for=23.45.67.89",
 				"for=12.34.56.78, for=23.45.67.89;secret=egah2CGj55fSJFs, for=10.1.2.3",
-				"For=\"[2001:db8:cafe::17]:4711\"", };
+				"For=\"[2001:db8:cafe::17]:4711\"",};
 
 		List<List<Map<String, String>>> expectedFor = new ArrayList<>();
 		expectedFor.add(Arrays.asList(map("for", "\"_gazonk\"")));

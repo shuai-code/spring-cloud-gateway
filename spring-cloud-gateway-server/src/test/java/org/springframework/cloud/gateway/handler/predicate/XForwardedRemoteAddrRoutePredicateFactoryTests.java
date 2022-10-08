@@ -41,7 +41,7 @@ import static org.springframework.cloud.gateway.test.TestUtils.assertStatus;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @DirtiesContext
-@ActiveProfiles({ "remote-address" })
+@ActiveProfiles({"remote-address"})
 public class XForwardedRemoteAddrRoutePredicateFactoryTests extends BaseWebClientTests {
 
 	@Test

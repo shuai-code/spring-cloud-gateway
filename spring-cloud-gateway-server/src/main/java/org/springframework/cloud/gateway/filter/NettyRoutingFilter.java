@@ -88,7 +88,7 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 	private volatile List<HttpHeadersFilter> headersFilters;
 
 	public NettyRoutingFilter(HttpClient httpClient, ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider,
-			HttpClientProperties properties) {
+							  HttpClientProperties properties) {
 		this.httpClient = httpClient;
 		this.headersFiltersProvider = headersFiltersProvider;
 		this.properties = properties;
@@ -215,15 +215,13 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 		HttpStatus status = HttpStatus.resolve(clientResponse.status().code());
 		if (status != null) {
 			response.setStatusCode(status);
-		}
-		else {
+		} else {
 			while (response instanceof ServerHttpResponseDecorator) {
 				response = ((ServerHttpResponseDecorator) response).getDelegate();
 			}
 			if (response instanceof AbstractServerHttpResponse) {
 				((AbstractServerHttpResponse) response).setRawStatusCode(clientResponse.status().code());
-			}
-			else {
+			} else {
 				// TODO: log warning here, not throw error?
 				throw new IllegalStateException("Unable to set status code " + clientResponse.status().code()
 						+ " on response of type " + response.getClass().getName());
@@ -235,7 +233,8 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 	 * Creates a new HttpClient with per route timeout configuration. Sub-classes that
 	 * override, should call super.getHttpClient() if they want to honor the per route
 	 * timeout configuration.
-	 * @param route the current route.
+	 *
+	 * @param route    the current route.
 	 * @param exchange the current ServerWebExchange.
 	 * @return the configured HttpClient.
 	 */
@@ -252,8 +251,7 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 		Integer connectTimeout;
 		if (connectTimeoutAttr instanceof Integer) {
 			connectTimeout = (Integer) connectTimeoutAttr;
-		}
-		else {
+		} else {
 			connectTimeout = Integer.parseInt(connectTimeoutAttr.toString());
 		}
 		return connectTimeout;
@@ -265,8 +263,7 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 			Long routeResponseTimeout = ((Number) responseTimeoutAttr).longValue();
 			if (routeResponseTimeout >= 0) {
 				return Duration.ofMillis(routeResponseTimeout);
-			}
-			else {
+			} else {
 				return null;
 			}
 		}

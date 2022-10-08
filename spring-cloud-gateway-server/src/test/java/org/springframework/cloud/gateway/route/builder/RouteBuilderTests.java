@@ -90,13 +90,13 @@ public class RouteBuilderTests {
 	@Test
 	public void testRoutesWithTimeout() {
 		RouteLocator routeLocator = this.routeLocatorBuilder.routes().route("test1", r -> {
-			return r.host("*.somehost.org").and().path("/somepath")
-					.filters(f -> f.addRequestHeader("header1", "header-value-1")).metadata(RESPONSE_TIMEOUT_ATTR, 1)
-					.metadata(CONNECT_TIMEOUT_ATTR, 1).uri("http://someuri");
-		}).route("test2",
-				r -> r.host("*.somehost2.org")
-						.filters(f -> f.addResponseHeader("header-response-1", "header-response-1"))
-						.uri("https://httpbin.org:9090"))
+					return r.host("*.somehost.org").and().path("/somepath")
+							.filters(f -> f.addRequestHeader("header1", "header-value-1")).metadata(RESPONSE_TIMEOUT_ATTR, 1)
+							.metadata(CONNECT_TIMEOUT_ATTR, 1).uri("http://someuri");
+				}).route("test2",
+						r -> r.host("*.somehost2.org")
+								.filters(f -> f.addResponseHeader("header-response-1", "header-response-1"))
+								.uri("https://httpbin.org:9090"))
 				.build();
 
 		StepVerifier.create(routeLocator.getRoutes())

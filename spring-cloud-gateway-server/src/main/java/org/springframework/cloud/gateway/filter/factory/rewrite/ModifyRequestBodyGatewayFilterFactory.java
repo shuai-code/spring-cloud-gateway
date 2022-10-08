@@ -105,7 +105,7 @@ public class ModifyRequestBodyGatewayFilterFactory
 	}
 
 	protected Mono<Void> release(ServerWebExchange exchange, CachedBodyOutputMessage outputMessage,
-			Throwable throwable) {
+								 Throwable throwable) {
 		if (outputMessage.isCached()) {
 			return outputMessage.getBody().map(DataBufferUtils::release).then(Mono.error(throwable));
 		}
@@ -113,7 +113,7 @@ public class ModifyRequestBodyGatewayFilterFactory
 	}
 
 	ServerHttpRequestDecorator decorate(ServerWebExchange exchange, HttpHeaders headers,
-			CachedBodyOutputMessage outputMessage) {
+										CachedBodyOutputMessage outputMessage) {
 		return new ServerHttpRequestDecorator(exchange.getRequest()) {
 			@Override
 			public HttpHeaders getHeaders() {
@@ -122,8 +122,7 @@ public class ModifyRequestBodyGatewayFilterFactory
 				httpHeaders.putAll(headers);
 				if (contentLength > 0) {
 					httpHeaders.setContentLength(contentLength);
-				}
-				else {
+				} else {
 					// TODO: this causes a 'HTTP/1.1 411 Length Required' // on
 					// httpbin.org
 					httpHeaders.set(HttpHeaders.TRANSFER_ENCODING, "chunked");
@@ -176,7 +175,7 @@ public class ModifyRequestBodyGatewayFilterFactory
 		}
 
 		public <T, R> Config setRewriteFunction(Class<T> inClass, Class<R> outClass,
-				RewriteFunction<T, R> rewriteFunction) {
+												RewriteFunction<T, R> rewriteFunction) {
 			setInClass(inClass);
 			setOutClass(outClass);
 			setRewriteFunction(rewriteFunction);

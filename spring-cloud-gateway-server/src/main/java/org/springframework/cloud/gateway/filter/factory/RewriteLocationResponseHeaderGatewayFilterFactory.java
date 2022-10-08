@@ -165,7 +165,7 @@ public class RewriteLocationResponseHeaderGatewayFilterFactory
 	}
 
 	String fixedLocation(String location, String host, String path, StripVersion stripVersion, Pattern hostPortPattern,
-			Pattern hostPortVersionPattern) {
+						 Pattern hostPortVersionPattern) {
 		final boolean doStrip = StripVersion.ALWAYS_STRIP.equals(stripVersion)
 				|| (StripVersion.AS_IN_REQUEST.equals(stripVersion) && !VERSIONED_PATH.matcher(path).matches());
 		final Pattern pattern = doStrip ? hostPortVersionPattern : hostPortPattern;

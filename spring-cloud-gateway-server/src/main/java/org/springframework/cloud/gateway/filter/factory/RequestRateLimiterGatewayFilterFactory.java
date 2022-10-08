@@ -54,7 +54,9 @@ public class RequestRateLimiterGatewayFilterFactory
 	 */
 	private boolean denyEmptyKey = true;
 
-	/** HttpStatus to return when denyEmptyKey is true, defaults to FORBIDDEN. */
+	/**
+	 * HttpStatus to return when denyEmptyKey is true, defaults to FORBIDDEN.
+	 */
 	private String emptyKeyStatusCode = HttpStatus.FORBIDDEN.name();
 
 	public RequestRateLimiterGatewayFilterFactory(RateLimiter defaultRateLimiter, KeyResolver defaultKeyResolver) {

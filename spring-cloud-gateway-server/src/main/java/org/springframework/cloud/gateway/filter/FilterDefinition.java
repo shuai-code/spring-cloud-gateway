@@ -41,6 +41,9 @@ public class FilterDefinition {
 	public FilterDefinition() {
 	}
 
+	/**
+	 * a=1,2,3  a是name, 1,2,3放到args
+	 */
 	public FilterDefinition(String text) {
 		int eqIdx = text.indexOf('=');
 		if (eqIdx <= 0) {

@@ -73,26 +73,19 @@ public class GetWithBodyRequestClientHttpRequestFactory implements ClientHttpReq
 	private HttpUriRequest createHttpUriRequest(final HttpMethod httpMethod, final URI uri) {
 		if (httpMethod.equals(HttpMethod.GET)) {
 			return new GetWithEntity(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.HEAD)) {
+		} else if (httpMethod.equals(HttpMethod.HEAD)) {
 			return new HttpHead(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.OPTIONS)) {
+		} else if (httpMethod.equals(HttpMethod.OPTIONS)) {
 			return new HttpOptions(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.POST)) {
+		} else if (httpMethod.equals(HttpMethod.POST)) {
 			return new HttpPost(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.DELETE)) {
+		} else if (httpMethod.equals(HttpMethod.DELETE)) {
 			return new HttpDelete(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.PUT)) {
+		} else if (httpMethod.equals(HttpMethod.PUT)) {
 			return new HttpPut(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.PATCH)) {
+		} else if (httpMethod.equals(HttpMethod.PATCH)) {
 			return new HttpPatch(uri);
-		}
-		else if (httpMethod.equals(HttpMethod.TRACE)) {
+		} else if (httpMethod.equals(HttpMethod.TRACE)) {
 			return new HttpTrace(uri);
 		}
 

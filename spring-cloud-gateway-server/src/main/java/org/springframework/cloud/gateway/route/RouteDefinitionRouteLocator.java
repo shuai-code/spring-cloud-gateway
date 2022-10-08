@@ -67,8 +67,8 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 	private final GatewayProperties gatewayProperties;
 
 	public RouteDefinitionRouteLocator(RouteDefinitionLocator routeDefinitionLocator,
-			List<RoutePredicateFactory> predicates, List<GatewayFilterFactory> gatewayFilterFactories,
-			GatewayProperties gatewayProperties, ConfigurationService configurationService) {
+									   List<RoutePredicateFactory> predicates, List<GatewayFilterFactory> gatewayFilterFactories,
+									   GatewayProperties gatewayProperties, ConfigurationService configurationService) {
 		this.routeDefinitionLocator = routeDefinitionLocator;
 		this.configurationService = configurationService;
 		initFactories(predicates);
@@ -154,8 +154,7 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 			GatewayFilter gatewayFilter = factory.apply(configuration);
 			if (gatewayFilter instanceof Ordered) {
 				ordered.add(gatewayFilter);
-			}
-			else {
+			} else {
 				ordered.add(new OrderedGatewayFilter(gatewayFilter, i + 1));
 			}
 		}

@@ -189,8 +189,7 @@ public class RouteDefinitionRouteLocatorTests {
 	private String getFilterClassName(GatewayFilter target) {
 		if (target instanceof OrderedGatewayFilter) {
 			return getFilterClassName(((OrderedGatewayFilter) target).getDelegate());
-		}
-		else {
+		} else {
 			String simpleName = target.getClass().getSimpleName();
 			if (ObjectUtils.isEmpty(simpleName)) {
 				// maybe a lambda using new toString methods

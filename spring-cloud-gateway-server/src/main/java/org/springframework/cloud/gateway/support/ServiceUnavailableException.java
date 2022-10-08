@@ -32,6 +32,7 @@ public class ServiceUnavailableException extends Exception {
 
 	/**
 	 * Disables fillInStackTrace for performance reasons.
+	 *
 	 * @return this
 	 */
 	@Override

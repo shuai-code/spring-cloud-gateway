@@ -68,6 +68,7 @@ public class CachingRouteLocator
 
 	/**
 	 * Clears the routes cache.
+	 *
 	 * @return routes flux
 	 */
 	public Flux<Route> refresh() {
@@ -83,8 +84,7 @@ public class CachingRouteLocator
 						applicationEventPublisher.publishEvent(new RefreshRoutesResultEvent(this));
 						cache.put(CACHE_KEY, signals);
 					}, this::handleRefreshError), this::handleRefreshError);
-		}
-		catch (Throwable e) {
+		} catch (Throwable e) {
 			handleRefreshError(e);
 		}
 	}

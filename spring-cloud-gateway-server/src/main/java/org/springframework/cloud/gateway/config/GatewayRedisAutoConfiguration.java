@@ -49,7 +49,7 @@ import org.springframework.web.reactive.DispatcherHandler;
 @AutoConfigureAfter(RedisReactiveAutoConfiguration.class)
 @AutoConfigureBefore(GatewayAutoConfiguration.class)
 @ConditionalOnBean(ReactiveRedisTemplate.class)
-@ConditionalOnClass({ RedisTemplate.class, DispatcherHandler.class })
+@ConditionalOnClass({RedisTemplate.class, DispatcherHandler.class})
 @ConditionalOnProperty(name = "spring.cloud.gateway.redis.enabled", matchIfMissing = true)
 class GatewayRedisAutoConfiguration {
 
@@ -66,8 +66,8 @@ class GatewayRedisAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public RedisRateLimiter redisRateLimiter(ReactiveStringRedisTemplate redisTemplate,
-			@Qualifier(RedisRateLimiter.REDIS_SCRIPT_NAME) RedisScript<List<Long>> redisScript,
-			ConfigurationService configurationService) {
+											 @Qualifier(RedisRateLimiter.REDIS_SCRIPT_NAME) RedisScript<List<Long>> redisScript,
+											 ConfigurationService configurationService) {
 		return new RedisRateLimiter(redisTemplate, redisScript, configurationService);
 	}
 

@@ -70,7 +70,7 @@ public class WebsocketRoutingFilter implements GlobalFilter, Ordered {
 	private volatile List<HttpHeadersFilter> headersFilters;
 
 	public WebsocketRoutingFilter(WebSocketClient webSocketClient, WebSocketService webSocketService,
-			ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider) {
+								  ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider) {
 		this.webSocketClient = webSocketClient;
 		this.webSocketService = webSocketService;
 		this.headersFiltersProvider = headersFiltersProvider;
@@ -186,8 +186,7 @@ public class WebsocketRoutingFilter implements GlobalFilter, Ordered {
 			this.headers = headers;
 			if (protocols != null) {
 				this.subProtocols = protocols;
-			}
-			else {
+			} else {
 				this.subProtocols = Collections.emptyList();
 			}
 		}

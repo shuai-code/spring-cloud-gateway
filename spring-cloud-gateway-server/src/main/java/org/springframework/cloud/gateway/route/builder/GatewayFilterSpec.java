@@ -93,6 +93,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Applies the filter to the route.
+	 *
 	 * @param gatewayFilter the filter to apply
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -106,8 +107,9 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Applies the filter to the route.
+	 *
 	 * @param gatewayFilter the filter to apply
-	 * @param order the order to apply the filter
+	 * @param order         the order to apply the filter
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec filter(GatewayFilter gatewayFilter, int order) {
@@ -123,6 +125,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Applies the list of filters to the route.
+	 *
 	 * @param gatewayFilters the filters to apply
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -136,8 +139,7 @@ public class GatewayFilterSpec extends UriSpec {
 		return stream.map(filter -> {
 			if (filter instanceof Ordered) {
 				return filter;
-			}
-			else {
+			} else {
 				return new OrderedGatewayFilter(filter, 0);
 			}
 		}).collect(Collectors.toList());
@@ -145,6 +147,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Applies the list of filters to the route.
+	 *
 	 * @param gatewayFilters the filters to apply
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -156,7 +159,8 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Adds a request header to the request before it is routed by the Gateway.
-	 * @param headerName the header name
+	 *
+	 * @param headerName  the header name
 	 * @param headerValue the header value
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -167,6 +171,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Adds a request parameter to the request before it is routed by the Gateway.
+	 *
 	 * @param param the parameter name
 	 * @param value the parameter vaule
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
@@ -178,7 +183,8 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Adds a header to the response returned to the Gateway from the route.
-	 * @param headerName the header name
+	 *
+	 * @param headerName  the header name
 	 * @param headerValue the header value
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -190,8 +196,9 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that removes duplication on a response header before it is returned to the
 	 * client by the Gateway.
+	 *
 	 * @param headerName the header name(s), space separated
-	 * @param strategy RETAIN_FIRST, RETAIN_LAST, or RETAIN_UNIQUE
+	 * @param strategy   RETAIN_FIRST, RETAIN_LAST, or RETAIN_UNIQUE
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec dedupeResponseHeader(String headerName, String strategy) {
@@ -203,8 +210,7 @@ public class GatewayFilterSpec extends UriSpec {
 		SpringCloudCircuitBreakerFilterFactory filterFactory;
 		try {
 			filterFactory = getBean(SpringCloudCircuitBreakerFilterFactory.class);
-		}
-		catch (NoSuchBeanDefinitionException e) {
+		} catch (NoSuchBeanDefinitionException e) {
 			throw new NoSuchBeanDefinitionException(SpringCloudCircuitBreakerFilterFactory.class,
 					"There needs to be a circuit breaker implementation on the classpath that supports reactive APIs.");
 		}
@@ -213,10 +219,11 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that transforms a JSON request into a gRPC one.
+	 *
 	 * @param protoDescriptor relative path to the proto descriptor file.
-	 * @param protoFile relative path to the proto definition file.
-	 * @param service fully qualified name of the service that will handle the request.
-	 * @param method method name in the service that will handle the request.
+	 * @param protoFile       relative path to the proto definition file.
+	 * @param service         fully qualified name of the service that will handle the request.
+	 * @param method          method name in the service that will handle the request.
 	 */
 	public GatewayFilterSpec jsonToGRPC(String protoDescriptor, String protoFile, String service, String method) {
 		return filter(getBean(JsonToGrpcGatewayFilterFactory.class).apply(c -> c.setMethod(method)
@@ -225,8 +232,9 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Maps headers from one name to another.
+	 *
 	 * @param fromHeader the header name of the original header.
-	 * @param toHeader the header name of the new header.
+	 * @param toHeader   the header name of the new header.
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec mapRequestHeader(String fromHeader, String toHeader) {
@@ -236,40 +244,43 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that can be used to modify the request body.
-	 * @param inClass the class to convert the incoming request body to
-	 * @param outClass the class the Gateway will add to the request before it is routed
+	 *
+	 * @param inClass         the class to convert the incoming request body to
+	 * @param outClass        the class the Gateway will add to the request before it is routed
 	 * @param rewriteFunction the {@link RewriteFunction} that transforms the request body
-	 * @param <T> the original request body class
-	 * @param <R> the new request body class
+	 * @param <T>             the original request body class
+	 * @param <R>             the new request body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	// TODO: setup custom spec
 	public <T, R> GatewayFilterSpec modifyRequestBody(Class<T> inClass, Class<R> outClass,
-			RewriteFunction<T, R> rewriteFunction) {
+													  RewriteFunction<T, R> rewriteFunction) {
 		return filter(getBean(ModifyRequestBodyGatewayFilterFactory.class)
 				.apply(c -> c.setRewriteFunction(inClass, outClass, rewriteFunction)));
 	}
 
 	/**
 	 * A filter that can be used to modify the request body.
-	 * @param inClass the class to convert the incoming request body to
-	 * @param outClass the class the Gateway will add to the request before it is routed
-	 * @param newContentType the new Content-Type header to be sent
+	 *
+	 * @param inClass         the class to convert the incoming request body to
+	 * @param outClass        the class the Gateway will add to the request before it is routed
+	 * @param newContentType  the new Content-Type header to be sent
 	 * @param rewriteFunction the {@link RewriteFunction} that transforms the request body
-	 * @param <T> the original request body class
-	 * @param <R> the new request body class
+	 * @param <T>             the original request body class
+	 * @param <R>             the new request body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public <T, R> GatewayFilterSpec modifyRequestBody(Class<T> inClass, Class<R> outClass, String newContentType,
-			RewriteFunction<T, R> rewriteFunction) {
+													  RewriteFunction<T, R> rewriteFunction) {
 		return filter(getBean(ModifyRequestBodyGatewayFilterFactory.class)
 				.apply(c -> c.setRewriteFunction(inClass, outClass, rewriteFunction).setContentType(newContentType)));
 	}
 
 	/**
 	 * A filter that can cache the request body.
+	 *
 	 * @param bodyClass the class to convert the incoming request body to the original
-	 * request body class
+	 *                  request body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec cacheRequestBody(Class<?> bodyClass) {
@@ -278,19 +289,20 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that can be used to modify the request body.
+	 *
 	 * @param configConsumer request spec for response modification
-	 * @param <T> the original request body class
-	 * @param <R> the new request body class
+	 * @param <T>            the original request body class
+	 * @param <R>            the new request body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 * <pre>
 	 * {@code
 	 * ...
 	 * .modifyRequestBody(c -> c
-	 *		.setInClass(Some.class)
-	 *		.setOutClass(SomeOther.class)
-	 *		.setInHints(hintsIn)
-	 *		.setOutHints(hintsOut)
-	 *		.setRewriteFunction(rewriteFunction))
+	 * 		.setInClass(Some.class)
+	 * 		.setOutClass(SomeOther.class)
+	 * 		.setInHints(hintsIn)
+	 * 		.setOutHints(hintsOut)
+	 * 		.setRewriteFunction(rewriteFunction))
 	 * }
 	 * </pre>
 	 */
@@ -301,54 +313,57 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that can be used to modify the response body.
-	 * @param inClass the class to conver the response body to
-	 * @param outClass the class the Gateway will add to the response before it is
-	 * returned to the client
+	 *
+	 * @param inClass         the class to conver the response body to
+	 * @param outClass        the class the Gateway will add to the response before it is
+	 *                        returned to the client
 	 * @param rewriteFunction the {@link RewriteFunction} that transforms the response
-	 * body
-	 * @param <T> the original response body class
-	 * @param <R> the new response body class
+	 *                        body
+	 * @param <T>             the original response body class
+	 * @param <R>             the new response body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public <T, R> GatewayFilterSpec modifyResponseBody(Class<T> inClass, Class<R> outClass,
-			RewriteFunction<T, R> rewriteFunction) {
+													   RewriteFunction<T, R> rewriteFunction) {
 		return filter(getBean(ModifyResponseBodyGatewayFilterFactory.class)
 				.apply(c -> c.setRewriteFunction(inClass, outClass, rewriteFunction)));
 	}
 
 	/**
 	 * A filter that can be used to modify the response body.
-	 * @param inClass the class to conver the response body to
-	 * @param outClass the class the Gateway will add to the response before it is
-	 * returned to the client
-	 * @param newContentType the new Content-Type header to be returned
+	 *
+	 * @param inClass         the class to conver the response body to
+	 * @param outClass        the class the Gateway will add to the response before it is
+	 *                        returned to the client
+	 * @param newContentType  the new Content-Type header to be returned
 	 * @param rewriteFunction the {@link RewriteFunction} that transforms the response
-	 * body
-	 * @param <T> the original response body class
-	 * @param <R> the new response body class
+	 *                        body
+	 * @param <T>             the original response body class
+	 * @param <R>             the new response body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	// TODO: setup custom spec
 	public <T, R> GatewayFilterSpec modifyResponseBody(Class<T> inClass, Class<R> outClass, String newContentType,
-			RewriteFunction<T, R> rewriteFunction) {
+													   RewriteFunction<T, R> rewriteFunction) {
 		return filter(getBean(ModifyResponseBodyGatewayFilterFactory.class).apply(
 				c -> c.setRewriteFunction(inClass, outClass, rewriteFunction).setNewContentType(newContentType)));
 	}
 
 	/**
 	 * A filter that can be used to modify the response body using custom spec.
+	 *
 	 * @param configConsumer response spec for response modification
-	 * @param <T> the original response body class
-	 * @param <R> the new response body class
+	 * @param <T>            the original response body class
+	 * @param <R>            the new response body class
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 * <pre>
 	 * {@code
 	 * ...
 	 * .modifyResponseBody(c -> c
-	 *		.setInClass(Some.class)
-	 *		.setOutClass(SomeOther.class)
-	 *		.setOutHints(hintsOut)
-	 *		.setRewriteFunction(rewriteFunction))
+	 * 		.setInClass(Some.class)
+	 * 		.setOutClass(SomeOther.class)
+	 * 		.setOutHints(hintsOut)
+	 * 		.setRewriteFunction(rewriteFunction))
 	 * }
 	 * </pre>
 	 */
@@ -360,6 +375,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that can be used to add a prefix to the path of a request before it is
 	 * routed by the Gateway.
+	 *
 	 * @param prefix the prefix to add to the path
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -370,6 +386,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that will preserve the host header of the request on the outgoing request
 	 * from the Gateway.
+	 *
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec preserveHostHeader() {
@@ -380,6 +397,7 @@ public class GatewayFilterSpec extends UriSpec {
 	 * A filter that will set the Host header to
 	 * {@param hostName} on the outgoing
 	 * request.
+	 *
 	 * @param hostName the updated Host header value
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -389,9 +407,10 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will return a redirect response back to the client.
+	 *
 	 * @param status an HTTP status code, should be a {@code 300} series redirect
-	 * @param url the URL to redirect to. This URL will be set in the {@code location}
-	 * header
+	 * @param url    the URL to redirect to. This URL will be set in the {@code location}
+	 *               header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec redirect(int status, URI url) {
@@ -400,9 +419,10 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will return a redirect response back to the client.
+	 *
 	 * @param status an HTTP status code, should be a {@code 300} series redirect
-	 * @param url the URL to redirect to. This URL will be set in the {@code location}
-	 * header
+	 * @param url    the URL to redirect to. This URL will be set in the {@code location}
+	 *               header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec redirect(int status, String url) {
@@ -411,9 +431,10 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will return a redirect response back to the client.
+	 *
 	 * @param status an HTTP status code, should be a {@code 300} series redirect
-	 * @param url the URL to redirect to. This URL will be set in the {@code location}
-	 * header
+	 * @param url    the URL to redirect to. This URL will be set in the {@code location}
+	 *               header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec redirect(String status, URI url) {
@@ -422,9 +443,10 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will return a redirect response back to the client.
+	 *
 	 * @param status an HTTP status code, should be a {@code 300} series redirect
-	 * @param url the URL to redirect to. This URL will be set in the {@code location}
-	 * header
+	 * @param url    the URL to redirect to. This URL will be set in the {@code location}
+	 *               header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec redirect(String status, String url) {
@@ -433,16 +455,16 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will return a redirect response back to the client.
+	 *
 	 * @param status an HTTP status code, should be a {@code 300} series redirect
-	 * @param url the URL to redirect to. This URL will be set in the {@code location}
-	 * header
+	 * @param url    the URL to redirect to. This URL will be set in the {@code location}
+	 *               header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec redirect(HttpStatus status, URL url) {
 		try {
 			return filter(getBean(RedirectToGatewayFilterFactory.class).apply(status, url.toURI()));
-		}
-		catch (URISyntaxException e) {
+		} catch (URISyntaxException e) {
 			throw new IllegalArgumentException("Invalid URL", e);
 		}
 	}
@@ -450,6 +472,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that will remove a request header before the request is routed by the
 	 * Gateway.
+	 *
 	 * @param headerName the name of the header to remove
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -460,6 +483,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that will remove a request param before the request is routed by the
 	 * Gateway.
+	 *
 	 * @param paramName the name of the header to remove
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -470,6 +494,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that will remove a response header before the Gateway returns the response
 	 * to the client.
+	 *
 	 * @param headerName the name of the header to remove
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -479,8 +504,9 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will set up a request rate limiter for a route.
+	 *
 	 * @param configConsumer a {@link Consumer} that will return configuration for the
-	 * rate limiter
+	 *                       rate limiter
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec requestRateLimiter(
@@ -491,6 +517,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will set up a request rate limiter for a route.
+	 *
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public RequestRateLimiterSpec requestRateLimiter() {
@@ -499,7 +526,8 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter which rewrites the request path before it is routed by the Gateway.
-	 * @param regex a Java regular expression to match the path against
+	 *
+	 * @param regex       a Java regular expression to match the path against
 	 * @param replacement the replacement for the path
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -511,6 +539,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that will retry failed requests. By default {@code 5xx} errors and
 	 * {@code GET}s are retryable.
+	 *
 	 * @param retries max number of retries
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -521,9 +550,10 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will retry failed requests.
+	 *
 	 * @param retryConsumer a {@link Consumer} which returns a
-	 * {@link org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory.RetryConfig}
-	 * to configure the retry functionality
+	 *                      {@link org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory.RetryConfig}
+	 *                      to configure the retry functionality
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec retry(Consumer<RetryGatewayFilterFactory.RetryConfig> retryConsumer) {
@@ -532,8 +562,9 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that will retry failed requests.
+	 *
 	 * @param repeat a {@link Repeat}
-	 * @param retry a {@link Retry}
+	 * @param retry  a {@link Retry}
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec retry(Repeat<ServerWebExchange> repeat, Retry<ServerWebExchange> retry) {
@@ -545,6 +576,7 @@ public class GatewayFilterSpec extends UriSpec {
 	 * A filter that adds a number of headers to the response at the reccomendation from
 	 * <a href="https://blog.appcanary.com/2017/http-security-headers.html">this blog
 	 * post</a>.
+	 *
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec secureHeaders() {
@@ -556,6 +588,7 @@ public class GatewayFilterSpec extends UriSpec {
 	 * A filter that adds a number of headers to the response at the reccomendation from
 	 * <a href="https://blog.appcanary.com/2017/http-security-headers.html">this blog
 	 * post</a>.
+	 *
 	 * @param configConsumer self define headers
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -565,8 +598,9 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that sets the path of the request before it is routed by the Gateway.
+	 *
 	 * @param template the path to set on the request, allows multiple matching segments
-	 * using URI templates from Spring Framework
+	 *                 using URI templates from Spring Framework
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec setPath(String template) {
@@ -575,7 +609,8 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that sets a header on the request before it is routed by the Gateway.
-	 * @param headerName the header name
+	 *
+	 * @param headerName  the header name
 	 * @param headerValue the value of the header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -587,7 +622,8 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that sets a header on the response before it is returned to the client by
 	 * the Gateway.
-	 * @param headerName the header name
+	 *
+	 * @param headerName  the header name
 	 * @param headerValue the value of the header
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -599,8 +635,9 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that rewrites a header value on the response before it is returned to the
 	 * client by the Gateway.
-	 * @param headerName the header name
-	 * @param regex a Java regular expression to match the path against
+	 *
+	 * @param headerName  the header name
+	 * @param regex       a Java regular expression to match the path against
 	 * @param replacement the replacement for the path
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -612,15 +649,16 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that rewrites the value of Location response header, ridding it of backend
 	 * specific details.
-	 * @param stripVersionMode NEVER_STRIP, AS_IN_REQUEST, or ALWAYS_STRIP
+	 *
+	 * @param stripVersionMode   NEVER_STRIP, AS_IN_REQUEST, or ALWAYS_STRIP
 	 * @param locationHeaderName a location header name
-	 * @param hostValue host value
-	 * @param protocolsRegex a valid regex String, against which the protocol name will be
-	 * matched
+	 * @param hostValue          host value
+	 * @param protocolsRegex     a valid regex String, against which the protocol name will be
+	 *                           matched
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec rewriteLocationResponseHeader(String stripVersionMode, String locationHeaderName,
-			String hostValue, String protocolsRegex) {
+														   String hostValue, String protocolsRegex) {
 		return filter(getBean(RewriteLocationResponseHeaderGatewayFilterFactory.class).apply(
 				c -> c.setStripVersion(StripVersion.valueOf(stripVersionMode)).setLocationHeaderName(locationHeaderName)
 						.setHostValue(hostValue).setProtocols(protocolsRegex)));
@@ -629,6 +667,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that sets the status on the response before it is returned to the client
 	 * by the Gateway.
+	 *
 	 * @param status the status to set on the response
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -639,6 +678,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that sets the status on the response before it is returned to the client
 	 * by the Gateway.
+	 *
 	 * @param status the status to set on the response
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -649,6 +689,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter that sets the status on the response before it is returned to the client
 	 * by the Gateway.
+	 *
 	 * @param status the status to set on the response
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -665,6 +706,7 @@ public class GatewayFilterSpec extends UriSpec {
 	 * <a href="https://projects.spring.io/spring-security/">Spring Security</a> with
 	 * Spring Session, and want to ensure security details have been forwarded to the
 	 * remote process, this is critical.
+	 *
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	@SuppressWarnings("unchecked")
@@ -675,6 +717,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * Strips the prefix from the path of the request before it is routed by the Gateway.
+	 *
 	 * @param parts the number of parts of the path to remove
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -685,6 +728,7 @@ public class GatewayFilterSpec extends UriSpec {
 	/**
 	 * A filter which changes the URI the request will be routed to by the Gateway by
 	 * pulling it from a header on the request.
+	 *
 	 * @param headerName the header name containing the URI
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -694,8 +738,9 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter which change the URI the request will be routed to by the Gateway.
+	 *
 	 * @param determineRequestUri a {@link Function} which takes a
-	 * {@link ServerWebExchange} and returns a URI to route the request to
+	 *                            {@link ServerWebExchange} and returns a URI to route the request to
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec changeRequestUri(Function<ServerWebExchange, Optional<URI>> determineRequestUri) {
@@ -710,6 +755,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that sets the maximum permissible size of a Request.
+	 *
 	 * @param size the maximum size of a request
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -719,6 +765,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that sets the maximum permissible size of a Request.
+	 *
 	 * @param size the maximum size of a request
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -728,6 +775,7 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that sets the maximum permissible size of headers of Request.
+	 *
 	 * @param size the maximum size of header of request
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
@@ -737,14 +785,14 @@ public class GatewayFilterSpec extends UriSpec {
 
 	/**
 	 * A filter that enables token relay.
+	 *
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec tokenRelay() {
 		try {
 			return filter(getBean(TokenRelayGatewayFilterFactory.class).apply(o -> {
 			}));
-		}
-		catch (NoSuchBeanDefinitionException e) {
+		} catch (NoSuchBeanDefinitionException e) {
 			throw new IllegalStateException("No TokenRelayGatewayFilterFactory bean was found. Did you include the "
 					+ "org.springframework.boot:spring-boot-starter-oauth2-client dependency?");
 		}
@@ -754,9 +802,10 @@ public class GatewayFilterSpec extends UriSpec {
 	 * Adds hystrix execution exception headers to fallback request. Depends on @{code
 	 * org.springframework.cloud::spring-cloud-starter-netflix-hystrix} being on the
 	 * classpath, {@see https://cloud.spring.io/spring-cloud-netflix/}
+	 *
 	 * @param config a {@link FallbackHeadersGatewayFilterFactory.Config} which provides
-	 * the header names. If header names arguments are not provided, default values are
-	 * used.
+	 *               the header names. If header names arguments are not provided, default values are
+	 *               used.
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec fallbackHeaders(FallbackHeadersGatewayFilterFactory.Config config) {
@@ -768,9 +817,10 @@ public class GatewayFilterSpec extends UriSpec {
 	 * Adds hystrix execution exception headers to fallback request. Depends on @{code
 	 * org.springframework.cloud::spring-cloud-starter-netflix-hystrix} being on the
 	 * classpath, {@see https://cloud.spring.io/spring-cloud-netflix/}
+	 *
 	 * @param configConsumer a {@link Consumer} which can be used to set up the names of
-	 * the headers in the config. If header names arguments are not provided, default
-	 * values are used.
+	 *                       the headers in the config. If header names arguments are not provided, default
+	 *                       values are used.
 	 * @return a {@link GatewayFilterSpec} that can be used to apply additional filters
 	 */
 	public GatewayFilterSpec fallbackHeaders(Consumer<FallbackHeadersGatewayFilterFactory.Config> configConsumer) {
@@ -782,8 +832,7 @@ public class GatewayFilterSpec extends UriSpec {
 		FallbackHeadersGatewayFilterFactory factory;
 		try {
 			factory = getBean(FallbackHeadersGatewayFilterFactory.class);
-		}
-		catch (NoSuchBeanDefinitionException e) {
+		} catch (NoSuchBeanDefinitionException e) {
 			throw new NoSuchBeanDefinitionException(FallbackHeadersGatewayFilterFactory.class,
 					"This is probably because Hystrix is missing from the classpath, which can be resolved by adding dependency on 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'");
 		}
@@ -799,7 +848,7 @@ public class GatewayFilterSpec extends UriSpec {
 		}
 
 		public <C, R extends RateLimiter<C>> RequestRateLimiterSpec rateLimiter(Class<R> rateLimiterType,
-				Consumer<C> configConsumer) {
+																				Consumer<C> configConsumer) {
 			R rateLimiter = getBean(rateLimiterType);
 			C config = rateLimiter.newConfig();
 			configConsumer.accept(config);

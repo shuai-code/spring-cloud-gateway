@@ -61,10 +61,10 @@ class NettyRoutingFilterTests extends BaseWebClientTests {
 	}
 
 	@Test
-	// gh-2207
+		// gh-2207
 	void testCaseInsensitiveScheme() {
 		DisposableServer server = HttpServer.create().port(port).host("127.0.0.1").route(
-				routes -> routes.get("/issue", (request, response) -> response.sendString(Mono.just("issue2207"))))
+						routes -> routes.get("/issue", (request, response) -> response.sendString(Mono.just("issue2207"))))
 				.bindNow();
 
 		try {
@@ -75,8 +75,7 @@ class NettyRoutingFilterTests extends BaseWebClientTests {
 						String content = new String(entityExchangeResult.getResponseBody());
 						assertThat(content).isEqualTo("issue2207");
 					});
-		}
-		finally {
+		} finally {
 			server.disposeNow();
 		}
 	}

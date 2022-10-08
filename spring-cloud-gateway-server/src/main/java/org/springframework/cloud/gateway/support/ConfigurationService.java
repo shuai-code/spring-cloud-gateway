@@ -55,14 +55,14 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 	private Supplier<Validator> validator;
 
 	public ConfigurationService(BeanFactory beanFactory, ObjectProvider<ConversionService> conversionService,
-			ObjectProvider<Validator> validator) {
+								ObjectProvider<Validator> validator) {
 		this.beanFactory = beanFactory;
 		this.conversionService = conversionService::getIfAvailable;
 		this.validator = validator::getIfAvailable;
 	}
 
 	public ConfigurationService(BeanFactory beanFactory, Supplier<ConversionService> conversionService,
-			Supplier<Validator> validator) {
+								Supplier<Validator> validator) {
 		this.beanFactory = beanFactory;
 		this.conversionService = conversionService;
 		this.validator = validator;
@@ -85,8 +85,9 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 		return new InstanceBuilder<T>(this, instance);
 	}
 
-	/* for testing */ static <T> T bindOrCreate(Bindable<T> bindable, Map<String, Object> properties,
-			String configurationPropertyName, Validator validator, ConversionService conversionService) {
+	/* for testing */
+	static <T> T bindOrCreate(Bindable<T> bindable, Map<String, Object> properties,
+							  String configurationPropertyName, Validator validator, ConversionService conversionService) {
 		// see ConfigurationPropertiesBinder from spring boot for this definition.
 		BindHandler handler = new IgnoreTopLevelConverterNotFoundBindHandler();
 
@@ -107,8 +108,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 			if (AopUtils.isAopProxy(candidate) && (candidate instanceof Advised)) {
 				return (T) ((Advised) candidate).getTargetSource().getTarget();
 			}
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			throw new IllegalStateException("Failed to unwrap proxied object", ex);
 		}
 		return (T) candidate;

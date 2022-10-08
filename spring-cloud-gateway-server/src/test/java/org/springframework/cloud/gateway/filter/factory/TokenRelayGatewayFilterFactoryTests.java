@@ -50,7 +50,6 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author Spencer Gibb
- *
  */
 public class TokenRelayGatewayFilterFactoryTests {
 

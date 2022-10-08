@@ -74,14 +74,12 @@ final class HttpComponentsClientHttpResponse extends AbstractClientHttpResponse 
 		try {
 			try {
 				EntityUtils.consume(response.getEntity());
-			}
-			finally {
+			} finally {
 				if (response instanceof Closeable) {
 					((Closeable) response).close();
 				}
 			}
-		}
-		catch (IOException ignored) {
+		} catch (IOException ignored) {
 		}
 	}
 

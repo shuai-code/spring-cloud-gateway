@@ -189,8 +189,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 				builder.append("{cause=").append(cause.getClass().getName()).append("}");
 			}
 			return builder.toString();
-		}
-		else {
+		} else {
 			return "null";
 		}
 	}
@@ -314,7 +313,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 		}
 
 		public RetryConfig setBackoff(Duration firstBackoff, Duration maxBackoff, int factor,
-				boolean basedOnPreviousValue) {
+									  boolean basedOnPreviousValue) {
 			this.backoff = new BackoffConfig(firstBackoff, maxBackoff, factor, basedOnPreviousValue);
 			return this;
 		}

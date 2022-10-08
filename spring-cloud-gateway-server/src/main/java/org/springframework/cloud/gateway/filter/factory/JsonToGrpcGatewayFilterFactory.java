@@ -74,7 +74,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 /**
  * This filter takes a JSON payload, transform it into a protobuf object, send it to a
  * given gRPC channel, and transform the response back to JSON.
- *
+ * <p>
  * Making it transparent for the consumer that the service under the gateway is a gRPC
  * one.
  *
@@ -205,8 +205,7 @@ public class JsonToGrpcGatewayFilterFactory
 				objectReader = objectMapper.readerFor(JsonNode.class).with(responseType);
 				objectNode = objectMapper.createObjectNode();
 
-			}
-			catch (IOException | Descriptors.DescriptorValidationException e) {
+			} catch (IOException | Descriptors.DescriptorValidationException e) {
 				throw new RuntimeException(e);
 			}
 		}
@@ -220,7 +219,7 @@ public class JsonToGrpcGatewayFilterFactory
 		}
 
 		private ClientCall<DynamicMessage, DynamicMessage> createClientCallForType(Config config,
-				Descriptors.Descriptor outputType) {
+																				   Descriptors.Descriptor outputType) {
 			MethodDescriptor.Marshaller<DynamicMessage> marshaller = ProtoUtils
 					.marshaller(DynamicMessage.newBuilder(outputType).build());
 			MethodDescriptor<DynamicMessage, DynamicMessage> methodDescriptor = MethodDescriptor
@@ -256,8 +255,7 @@ public class JsonToGrpcGatewayFilterFactory
 				try {
 					byte[] request = objectWriter.writeValueAsBytes(jsonRequest);
 					return ClientCalls.blockingUnaryCall(clientCall, DynamicMessage.parseFrom(descriptor, request));
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			};
@@ -267,8 +265,7 @@ public class JsonToGrpcGatewayFilterFactory
 			return gRPCResponse -> {
 				try {
 					return objectReader.readValue(gRPCResponse.toByteArray());
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			};
@@ -289,8 +286,7 @@ public class JsonToGrpcGatewayFilterFactory
 				try {
 					return new NettyDataBufferFactory(new PooledByteBufAllocator())
 							.wrap(Objects.requireNonNull(new ObjectMapper().writeValueAsBytes(jsonResponse)));
-				}
-				catch (JsonProcessingException e) {
+				} catch (JsonProcessingException e) {
 					return new NettyDataBufferFactory(new PooledByteBufAllocator()).allocateBuffer();
 				}
 			};
@@ -301,8 +297,7 @@ public class JsonToGrpcGatewayFilterFactory
 			NettyChannelBuilder nettyChannelBuilder = NettyChannelBuilder.forAddress(host, port);
 			try {
 				return grpcSslConfigurer.configureSsl(nettyChannelBuilder);
-			}
-			catch (SSLException e) {
+			} catch (SSLException e) {
 				throw new RuntimeException(e);
 			}
 		}

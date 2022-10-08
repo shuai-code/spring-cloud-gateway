@@ -64,9 +64,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT,
-		properties = { "spring.cloud.gateway.httpclient.connect-timeout=500",
+		properties = {"spring.cloud.gateway.httpclient.connect-timeout=500",
 				"spring.cloud.gateway.httpclient.response-timeout=2s",
-				"logging.level.org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory=TRACE" })
+				"logging.level.org.springframework.cloud.gateway.filter.factory.RetryGatewayFilterFactory=TRACE"})
 @DirtiesContext
 // default filter AddResponseHeader suppresses bug
 // https://github.com/spring-cloud/spring-cloud-gateway/issues/1315,
@@ -216,7 +216,7 @@ public class RetryGatewayFilterFactoryIntegrationTests extends BaseWebClientTest
 
 		@RequestMapping("/httpbin/sleep")
 		public Mono<ResponseEntity<String>> sleep(@RequestParam("key") String key,
-				@RequestParam("millis") long millisToSleep) {
+												  @RequestParam("millis") long millisToSleep) {
 			AtomicInteger num = getCount(key);
 			int retryCount = num.incrementAndGet();
 			log.warn("Retry count: " + retryCount);
@@ -226,7 +226,7 @@ public class RetryGatewayFilterFactoryIntegrationTests extends BaseWebClientTest
 
 		@GetMapping("/httpbin/retryalwaysfail")
 		public ResponseEntity<String> retryalwaysfail(@RequestParam("key") String key,
-				@RequestParam(name = "count", defaultValue = "3") int count) {
+													  @RequestParam(name = "count", defaultValue = "3") int count) {
 			AtomicInteger num = getCount(key);
 			int i = num.incrementAndGet();
 			log.warn("Retry count: " + i);
@@ -236,8 +236,8 @@ public class RetryGatewayFilterFactoryIntegrationTests extends BaseWebClientTest
 
 		@PostMapping("/httpbin/retrypost")
 		public ResponseEntity<String> retrypost(@RequestParam("key") String key,
-				@RequestParam(name = "count", defaultValue = "3") int count,
-				@RequestParam("expectedbody") String expectedbody, @RequestBody String body) {
+												@RequestParam(name = "count", defaultValue = "3") int count,
+												@RequestParam("expectedbody") String expectedbody, @RequestBody String body) {
 			ResponseEntity<String> response = retry(key, count, null);
 			if (!expectedbody.equals(body)) {
 				AtomicInteger num = getCount(key);
@@ -249,8 +249,8 @@ public class RetryGatewayFilterFactoryIntegrationTests extends BaseWebClientTest
 
 		@GetMapping("/httpbin/retry")
 		public ResponseEntity<String> retry(@RequestParam("key") String key,
-				@RequestParam(name = "count", defaultValue = "3") int count,
-				@RequestParam(name = "failStatus", required = false) Integer failStatus) {
+											@RequestParam(name = "count", defaultValue = "3") int count,
+											@RequestParam(name = "failStatus", required = false) Integer failStatus) {
 			AtomicInteger num = getCount(key);
 			int i = num.incrementAndGet();
 			log.warn("Retry count: " + i);
@@ -272,10 +272,10 @@ public class RetryGatewayFilterFactoryIntegrationTests extends BaseWebClientTest
 		@Bean
 		public RouteLocator hystrixRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("retry_java",
-					r -> r.host("**.retryjava.org")
-							.filters(f -> f.prefixPath("/httpbin")
-									.retry(config -> config.setRetries(2).setMethods(HttpMethod.POST, HttpMethod.GET)))
-							.uri(uri))
+							r -> r.host("**.retryjava.org")
+									.filters(f -> f.prefixPath("/httpbin")
+											.retry(config -> config.setRetries(2).setMethods(HttpMethod.POST, HttpMethod.GET)))
+									.uri(uri))
 					.route("retry_series",
 							r -> r.host("**.retryseries.org")
 									.filters(f -> f.prefixPath("/httpbin").retry(

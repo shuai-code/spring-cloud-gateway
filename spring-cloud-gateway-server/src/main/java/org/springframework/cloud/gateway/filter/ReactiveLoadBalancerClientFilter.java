@@ -58,7 +58,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.a
  * @author Tim Ysewyn
  * @author Olga Maciaszek-Sharma
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ReactiveLoadBalancerClientFilter implements GlobalFilter, Ordered {
 
 	private static final Log log = LogFactory.getLog(ReactiveLoadBalancerClientFilter.class);
@@ -78,13 +78,13 @@ public class ReactiveLoadBalancerClientFilter implements GlobalFilter, Ordered {
 	 */
 	@Deprecated
 	public ReactiveLoadBalancerClientFilter(LoadBalancerClientFactory clientFactory,
-			GatewayLoadBalancerProperties properties, LoadBalancerProperties loadBalancerProperties) {
+											GatewayLoadBalancerProperties properties, LoadBalancerProperties loadBalancerProperties) {
 		this.clientFactory = clientFactory;
 		this.properties = properties;
 	}
 
 	public ReactiveLoadBalancerClientFilter(LoadBalancerClientFactory clientFactory,
-			GatewayLoadBalancerProperties properties) {
+											GatewayLoadBalancerProperties properties) {
 		this.clientFactory = clientFactory;
 		this.properties = properties;
 	}
@@ -117,35 +117,35 @@ public class ReactiveLoadBalancerClientFilter implements GlobalFilter, Ordered {
 				new RequestDataContext(new RequestData(exchange.getRequest()), getHint(serviceId)));
 		return choose(lbRequest, serviceId, supportedLifecycleProcessors).doOnNext(response -> {
 
-			if (!response.hasServer()) {
-				supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
-						.onComplete(new CompletionContext<>(CompletionContext.Status.DISCARD, lbRequest, response)));
-				throw NotFoundException.create(properties.isUse404(), "Unable to find instance for " + url.getHost());
-			}
+					if (!response.hasServer()) {
+						supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
+								.onComplete(new CompletionContext<>(CompletionContext.Status.DISCARD, lbRequest, response)));
+						throw NotFoundException.create(properties.isUse404(), "Unable to find instance for " + url.getHost());
+					}
 
-			ServiceInstance retrievedInstance = response.getServer();
+					ServiceInstance retrievedInstance = response.getServer();
 
-			URI uri = exchange.getRequest().getURI();
+					URI uri = exchange.getRequest().getURI();
 
-			// if the `lb:<scheme>` mechanism was used, use `<scheme>` as the default,
-			// if the loadbalancer doesn't provide one.
-			String overrideScheme = retrievedInstance.isSecure() ? "https" : "http";
-			if (schemePrefix != null) {
-				overrideScheme = url.getScheme();
-			}
+					// if the `lb:<scheme>` mechanism was used, use `<scheme>` as the default,
+					// if the loadbalancer doesn't provide one.
+					String overrideScheme = retrievedInstance.isSecure() ? "https" : "http";
+					if (schemePrefix != null) {
+						overrideScheme = url.getScheme();
+					}
 
-			DelegatingServiceInstance serviceInstance = new DelegatingServiceInstance(retrievedInstance,
-					overrideScheme);
+					DelegatingServiceInstance serviceInstance = new DelegatingServiceInstance(retrievedInstance,
+							overrideScheme);
 
-			URI requestUrl = reconstructURI(serviceInstance, uri);
+					URI requestUrl = reconstructURI(serviceInstance, uri);
 
-			if (log.isTraceEnabled()) {
-				log.trace("LoadBalancerClientFilter url chosen: " + requestUrl);
-			}
-			exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, requestUrl);
-			exchange.getAttributes().put(GATEWAY_LOADBALANCER_RESPONSE_ATTR, response);
-			supportedLifecycleProcessors.forEach(lifecycle -> lifecycle.onStartRequest(lbRequest, response));
-		}).then(chain.filter(exchange))
+					if (log.isTraceEnabled()) {
+						log.trace("LoadBalancerClientFilter url chosen: " + requestUrl);
+					}
+					exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, requestUrl);
+					exchange.getAttributes().put(GATEWAY_LOADBALANCER_RESPONSE_ATTR, response);
+					supportedLifecycleProcessors.forEach(lifecycle -> lifecycle.onStartRequest(lbRequest, response));
+				}).then(chain.filter(exchange))
 				.doOnError(throwable -> supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
 						.onComplete(new CompletionContext<ResponseData, ServiceInstance, RequestDataContext>(
 								CompletionContext.Status.FAILED, throwable, lbRequest,
@@ -162,7 +162,7 @@ public class ReactiveLoadBalancerClientFilter implements GlobalFilter, Ordered {
 	}
 
 	private Mono<Response<ServiceInstance>> choose(Request<RequestDataContext> lbRequest, String serviceId,
-			Set<LoadBalancerLifecycle> supportedLifecycleProcessors) {
+												   Set<LoadBalancerLifecycle> supportedLifecycleProcessors) {
 		ReactorLoadBalancer<ServiceInstance> loadBalancer = this.clientFactory.getInstance(serviceId,
 				ReactorServiceInstanceLoadBalancer.class);
 		if (loadBalancer == null) {

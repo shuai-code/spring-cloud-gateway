@@ -37,9 +37,9 @@ import org.springframework.web.reactive.DispatcherHandler;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(name = "spring.cloud.gateway.enabled", matchIfMissing = true)
-@AutoConfigureAfter({ ReactiveResilience4JAutoConfiguration.class })
-@ConditionalOnClass({ DispatcherHandler.class, ReactiveResilience4JAutoConfiguration.class,
-		ReactiveCircuitBreakerFactory.class, ReactiveResilience4JCircuitBreakerFactory.class })
+@AutoConfigureAfter({ReactiveResilience4JAutoConfiguration.class})
+@ConditionalOnClass({DispatcherHandler.class, ReactiveResilience4JAutoConfiguration.class,
+		ReactiveCircuitBreakerFactory.class, ReactiveResilience4JCircuitBreakerFactory.class})
 public class GatewayResilience4JCircuitBreakerAutoConfiguration {
 
 	@Bean

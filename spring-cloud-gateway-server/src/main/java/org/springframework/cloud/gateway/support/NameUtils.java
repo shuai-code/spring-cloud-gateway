@@ -74,8 +74,7 @@ public final class NameUtils {
 		while (matcher.find()) {
 			if (stringBuffer.length() != 0) {
 				matcher.appendReplacement(stringBuffer, "-" + matcher.group(1));
-			}
-			else {
+			} else {
 				matcher.appendReplacement(stringBuffer, matcher.group(1));
 			}
 		}

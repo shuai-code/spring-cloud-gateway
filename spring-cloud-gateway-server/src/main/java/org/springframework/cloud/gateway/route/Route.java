@@ -56,7 +56,7 @@ public class Route implements Ordered {
 	private final Map<String, Object> metadata;
 
 	private Route(String id, URI uri, int order, AsyncPredicate<ServerWebExchange> predicate,
-			List<GatewayFilter> gatewayFilters, Map<String, Object> metadata) {
+				  List<GatewayFilter> gatewayFilters, Map<String, Object> metadata) {
 		this.id = id;
 		this.uri = uri;
 		this.order = order;

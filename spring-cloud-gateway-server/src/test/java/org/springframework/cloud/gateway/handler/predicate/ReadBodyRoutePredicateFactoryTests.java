@@ -84,8 +84,8 @@ public class ReadBodyRoutePredicateFactoryTests {
 
 	@EnableAutoConfiguration
 	@SpringBootConfiguration
-	@LoadBalancerClients({ @LoadBalancerClient(name = "message", configuration = TestLoadBalancerConfig.class),
-			@LoadBalancerClient(name = "messageChannel", configuration = TestLoadBalancerConfig.class) })
+	@LoadBalancerClients({@LoadBalancerClient(name = "message", configuration = TestLoadBalancerConfig.class),
+			@LoadBalancerClient(name = "messageChannel", configuration = TestLoadBalancerConfig.class)})
 	@Import(PermitAllSecurityConfiguration.class)
 	@RestController
 	public static class TestConfig {

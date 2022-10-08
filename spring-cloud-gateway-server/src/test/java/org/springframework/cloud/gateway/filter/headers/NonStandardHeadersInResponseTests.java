@@ -42,7 +42,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
-@SpringBootTest(webEnvironment = DEFINED_PORT, properties = { "server.port=62175" })
+@SpringBootTest(webEnvironment = DEFINED_PORT, properties = {"server.port=62175"})
 @DirtiesContext
 public class NonStandardHeadersInResponseTests extends BaseWebClientTests {
 
@@ -87,8 +87,8 @@ public class NonStandardHeadersInResponseTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("non_standard_header_route", r -> r.path("/get-image/**")
-					.filters(f -> f.addRequestHeader(HttpHeaders.HOST, "www.addrequestparameter.org").stripPrefix(1))
-					.uri("http://localhost:" + port + "/get"))
+							.filters(f -> f.addRequestHeader(HttpHeaders.HOST, "www.addrequestparameter.org").stripPrefix(1))
+							.uri("http://localhost:" + port + "/get"))
 					.route("internal_route", r -> r.path("/get/**").filters(f -> f.prefixPath("/httpbin")).uri(uri))
 					.build();
 		}

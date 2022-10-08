@@ -66,8 +66,7 @@ public class CachingRouteDefinitionLocatorTests {
 				new StubRouteDefinitionLocator(Flux.just(routeDef1), Flux.defer(() -> {
 					try {
 						latch.await();
-					}
-					catch (InterruptedException e) {
+					} catch (InterruptedException e) {
 						Thread.currentThread().interrupt();
 						throw new IllegalStateException(e);
 					}

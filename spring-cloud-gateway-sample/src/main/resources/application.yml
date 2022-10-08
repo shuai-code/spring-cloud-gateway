@@ -10,26 +10,26 @@ spring:
   cloud:
     gateway:
       default-filters:
-      - PrefixPath=/httpbin
-      - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+        - PrefixPath=/httpbin
+        - AddResponseHeader=X-Response-Default-Foo, Default-Bar
 
       routes:
-      # =====================================
-      # to run server
-      # $ wscat --listen 9000
-      # to run client
-      # $ wscat --connect ws://localhost:8080/echo
-      - id: websocket_test
-        uri: ws://localhost:9000
-        order: 9000
-        predicates:
-        - Path=/echo
-      # =====================================
-      - id: default_path_to_httpbin # 路由ID
-        uri: ${test.uri}            # 路由地址
-        order: 10000                # 排序
-        predicates:                 # 匹配规则
-        - Path=/**                  # 匹配所有的
+        # =====================================
+        # to run server
+        # $ wscat --listen 9000
+        # to run client
+        # $ wscat --connect ws://localhost:8080/echo
+        - id: websocket_test
+          uri: ws://localhost:9000
+          order: 9000
+          predicates:
+            - Path=/echo
+        # =====================================
+        - id: default_path_to_httpbin # 路由ID
+          uri: ${test.uri}            # 路由地址
+          order: 10000                # 排序
+          predicates: # 匹配规则
+            - Path=/**                  # 匹配所有的
 
 logging:
   level:

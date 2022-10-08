@@ -6,7 +6,8 @@
 	<suppress files=".*AbstractFilterChain\.java" checks="LineLengthCheck"/>
 	<suppress files=".*AbstractNameValueGatewayFilterFactory\.java" checks="LineLengthCheck"/>
 	<suppress files=".*AdhocTestSuite\.java" checks="LineLengthCheck"/>
-	<suppress files=".*CloudFoundryRouteServiceRoutePredicateFactory\.java" checks="JavadocTagContinuationIndentationCheck"/>
+	<suppress files=".*CloudFoundryRouteServiceRoutePredicateFactory\.java"
+			  checks="JavadocTagContinuationIndentationCheck"/>
 	<suppress files=".*CloudFoundryRouteServiceRoutePredicateFactory\.java" checks="LineLengthCheck"/>
 	<suppress files=".*DiscoveryClientRouteDefinitionLocatorTests\.java" checks="LineLengthCheck"/>
 	<suppress files=".*FormIntegrationTests\.java" checks="LineLengthCheck"/>

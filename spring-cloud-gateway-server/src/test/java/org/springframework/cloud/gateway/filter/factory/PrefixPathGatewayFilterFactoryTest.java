@@ -69,7 +69,7 @@ public class PrefixPathGatewayFilterFactoryTest {
 	}
 
 	private void testPrefixPathFilter(String prefix, String path, String expectedPath,
-			HashMap<String, String> variables) {
+									  HashMap<String, String> variables) {
 		GatewayFilter filter = new PrefixPathGatewayFilterFactory().apply(c -> c.setPrefix(prefix));
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost" + path).build();
 

@@ -37,9 +37,9 @@ public class ReactiveGatewayDiscoveryClientAutoConfigurationTests {
 
 	@RunWith(SpringRunner.class)
 	@SpringBootTest(classes = Config.class,
-			properties = { "spring.cloud.gateway.discovery.locator.enabled=true",
+			properties = {"spring.cloud.gateway.discovery.locator.enabled=true",
 					"spring.cloud.gateway.loadbalancer.use404=true",
-					"spring.cloud.discovery.client.simple.instances.service[0].uri=https://service1:443" })
+					"spring.cloud.discovery.client.simple.instances.service[0].uri=https://service1:443"})
 	public static class EnabledByProperty {
 
 		@Autowired(required = false)

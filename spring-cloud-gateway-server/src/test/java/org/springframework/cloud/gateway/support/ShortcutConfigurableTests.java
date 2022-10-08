@@ -179,8 +179,7 @@ public class ShortcutConfigurableTests {
 		assertThat((List) map.get("values")).containsExactly("val0", "val1", "val2");
 		if (hasTailFlag) {
 			assertThat(map.get("flag")).isEqualTo("false");
-		}
-		else {
+		} else {
 			assertThat(map).doesNotContainKeys("flag");
 		}
 	}

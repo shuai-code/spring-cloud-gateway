@@ -25,7 +25,7 @@ class AdditionalRoutesImportSelector implements DeferredImportSelector {
 	@Override
 	public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 		if (ClassUtils.isPresent("org.springframework.cloud.gateway.sample.AdditionalRoutes", null)) {
-			return new String[] { "org.springframework.cloud.gateway.sample.AdditionalRoutes" };
+			return new String[]{"org.springframework.cloud.gateway.sample.AdditionalRoutes"};
 		}
 		return new String[0];
 	}

@@ -74,6 +74,7 @@ public class CachedBodyOutputMessage implements ReactiveHttpOutputMessage {
 
 	/**
 	 * Return the request body, or an error stream if the body was never set or when.
+	 *
 	 * @return body as {@link Flux}
 	 */
 	public Flux<DataBuffer> getBody() {

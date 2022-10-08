@@ -104,7 +104,7 @@ public class TransferEncodingNormalizationHeadersFilterIntegrationTests {
 	@RestController
 	public static class TestConfig {
 
-		@PostMapping(value = "/echo", produces = { MediaType.APPLICATION_JSON_VALUE })
+		@PostMapping(value = "/echo", produces = {MediaType.APPLICATION_JSON_VALUE})
 		public Message message(@RequestBody Message message) throws IOException {
 			return message;
 		}

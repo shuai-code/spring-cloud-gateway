@@ -37,8 +37,7 @@ public class HttpStatusHolder {
 		final Integer intStatus;
 		if (httpStatus == null) {
 			intStatus = Integer.parseInt(status);
-		}
-		else {
+		} else {
 			intStatus = null;
 		}
 
@@ -56,6 +55,7 @@ public class HttpStatusHolder {
 	/**
 	 * Whether this status code is in the HTTP series
 	 * {@link org.springframework.http.HttpStatus.Series#INFORMATIONAL}.
+	 *
 	 * @return <code>true</code> if status code is in the INFORMATIONAL http series
 	 */
 	public boolean is1xxInformational() {
@@ -65,6 +65,7 @@ public class HttpStatusHolder {
 	/**
 	 * Whether this status code is in the HTTP series
 	 * {@link org.springframework.http.HttpStatus.Series#SUCCESSFUL}.
+	 *
 	 * @return <code>true</code> if status code is in the SUCCESSFUL http series
 	 */
 	public boolean is2xxSuccessful() {
@@ -74,6 +75,7 @@ public class HttpStatusHolder {
 	/**
 	 * Whether this status code is in the HTTP series
 	 * {@link org.springframework.http.HttpStatus.Series#REDIRECTION}.
+	 *
 	 * @return <code>true</code> if status code is in the REDIRECTION http series
 	 */
 	public boolean is3xxRedirection() {
@@ -83,6 +85,7 @@ public class HttpStatusHolder {
 	/**
 	 * Whether this status code is in the HTTP series
 	 * {@link org.springframework.http.HttpStatus.Series#CLIENT_ERROR}.
+	 *
 	 * @return <code>true</code> if status code is in the CLIENT_ERROR http series
 	 */
 	public boolean is4xxClientError() {
@@ -92,6 +95,7 @@ public class HttpStatusHolder {
 	/**
 	 * Whether this status code is in the HTTP series
 	 * {@link org.springframework.http.HttpStatus.Series#SERVER_ERROR}.
+	 *
 	 * @return <code>true</code> if status code is in the SERVER_ERROR http series
 	 */
 	public boolean is5xxServerError() {
@@ -112,6 +116,7 @@ public class HttpStatusHolder {
 	 * Whether this status code is in the HTTP series
 	 * {@link org.springframework.http.HttpStatus.Series#CLIENT_ERROR} or
 	 * {@link org.springframework.http.HttpStatus.Series#SERVER_ERROR}.
+	 *
 	 * @return <code>true</code> if is either CLIENT_ERROR or SERVER_ERROR
 	 */
 	public boolean isError() {

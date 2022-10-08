@@ -148,7 +148,7 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 	}
 
 	private void checkLimitEnforced(String id, int replenishRate, int burstCapacity, int requestedTokens,
-			String routeId) throws InterruptedException {
+									String routeId) throws InterruptedException {
 		// Bursts work
 		simulateBurst(id, replenishRate, burstCapacity, requestedTokens, routeId);
 
