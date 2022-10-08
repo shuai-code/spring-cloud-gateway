@@ -43,6 +43,7 @@ public class ForwardPathFilter implements GlobalFilter, Ordered {
 		if (isAlreadyRouted(exchange) || !"forward".equals(scheme)) {
 			return chain.filter(exchange);
 		}
+		// 设置请求URI中的路径
 		exchange = exchange.mutate().request(exchange.getRequest().mutate().path(routeUri.getPath()).build()).build();
 		return chain.filter(exchange);
 	}

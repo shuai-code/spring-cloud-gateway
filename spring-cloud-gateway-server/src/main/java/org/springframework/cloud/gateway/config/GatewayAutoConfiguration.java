@@ -239,6 +239,12 @@ public class GatewayAutoConfiguration {
 		return new RouteRefreshListener(publisher);
 	}
 
+
+	/**
+	 * 一个Bean,在服务启动时加载Bean到Spring容器中
+	 * Spring的特性, 入参对象列表会自动注入到这个方法中
+	 * 这里是把全局过滤器注入到FilteringWebHandler对象中
+	 * */
 	@Bean
 	public FilteringWebHandler filteringWebHandler(List<GlobalFilter> globalFilters) {
 		return new FilteringWebHandler(globalFilters);

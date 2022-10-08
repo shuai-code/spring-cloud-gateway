@@ -4,7 +4,6 @@ test:
   #  uri: http://${test.hostport}
   uri: lb://httpbin
 
-
 spring:
   jmx:
     enabled: false
@@ -26,11 +25,11 @@ spring:
         predicates:
         - Path=/echo
       # =====================================
-      - id: default_path_to_httpbin
-        uri: ${test.uri}
-        order: 10000
-        predicates:
-        - Path=/**
+      - id: default_path_to_httpbin # 路由ID
+        uri: ${test.uri}            # 路由地址
+        order: 10000                # 排序
+        predicates:                 # 匹配规则
+        - Path=/**                  # 匹配所有的
 
 logging:
   level:
@@ -41,3 +40,5 @@ logging:
     reactor.netty: DEBUG
 
 management.endpoints.web.exposure.include: '*'
+server:
+  port: 12000

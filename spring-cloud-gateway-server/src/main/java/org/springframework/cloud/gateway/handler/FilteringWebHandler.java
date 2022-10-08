@@ -51,10 +51,16 @@ public class FilteringWebHandler implements WebHandler {
 
 	private final List<GatewayFilter> globalFilters;
 
+	/**
+	 * 初始化全局过滤器
+	 * */
 	public FilteringWebHandler(List<GlobalFilter> globalFilters) {
 		this.globalFilters = loadFilters(globalFilters);
 	}
 
+	/**
+	 * 根据过滤器是否实现了排序分别处理
+	 * */
 	private static List<GatewayFilter> loadFilters(List<GlobalFilter> filters) {
 		return filters.stream().map(filter -> {
 			GatewayFilterAdapter gatewayFilter = new GatewayFilterAdapter(filter);
